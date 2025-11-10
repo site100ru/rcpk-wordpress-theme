@@ -311,7 +311,7 @@ get_header(); ?>
                                                                 ИНН <?php echo esc_html(get_theme_mod('mytheme_inn')); ?>
                                                             <?php endif; ?>
                                                             <?php if (get_theme_mod('mytheme_ogrn')): ?>
-                                                                ОГРНИП <?php echo esc_html(get_theme_mod('mytheme_ogrn')); ?>
+                                                                ОГРН <?php echo esc_html(get_theme_mod('mytheme_ogrn')); ?>
                                                             <?php endif; ?>
                                                         </div>
                                                     </div>

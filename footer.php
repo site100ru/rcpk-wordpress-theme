@@ -15,7 +15,7 @@
                     <?php endif; ?>
                     <?php if (get_theme_mod('mytheme_ogrn')): ?>
                         <div class="text text--u-ibudnkn3j">
-                            <span class="text-block-wrap-div">ОГРНИП: <?php echo esc_html(get_theme_mod('mytheme_ogrn')); ?></span>
+                            <span class="text-block-wrap-div">ОГРН: <?php echo esc_html(get_theme_mod('mytheme_ogrn')); ?></span>
                         </div>
                     <?php endif; ?>
                 </div>

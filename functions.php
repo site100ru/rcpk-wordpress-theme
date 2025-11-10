@@ -714,7 +714,7 @@ function mytheme_customize_register($wp_customize)
         'sanitize_callback' => 'sanitize_text_field',
     ));
     $wp_customize->add_control('mytheme_ogrn', array(
-        'label'   => 'ОГРНИП',
+        'label'   => 'ОГРН',
         'section' => 'mytheme_contacts_requisites',
         'type'    => 'text',
     ));
