@@ -1,0 +1,985 @@
+<?php
+
+/**
+ * Functions and definitions
+ */
+
+/**
+ * Получить полный номер телефона
+ */
+function mytheme_get_phone($type = 'main')
+{
+    if ($type === 'main') {
+        $country = get_theme_mod('mytheme_main_phone_country_code', '+7');
+        $region = get_theme_mod('mytheme_main_phone_region_code', '');
+        $number = get_theme_mod('mytheme_main_phone_number', '');
+    } else {
+        $country = get_theme_mod('additional_phone_country_code', '+7');
+        $region = get_theme_mod('additional_phone_region_code', '');
+        $number = get_theme_mod('additional_phone_number', '');
+    }
+
+    if (empty($number)) {
+        return '';
+    }
+
+    $phone = $country;
+    if (!empty($region)) {
+        $phone .= ' (' . $region . ') ';
+    } else {
+        $phone .= ' ';
+    }
+    $phone .= $number;
+
+    return $phone;
+}
+
+/**
+ * Получить телефон в формате для tel:
+ */
+function mytheme_get_phone_link($type = 'main')
+{
+    if ($type === 'main') {
+        $country = get_theme_mod('mytheme_main_phone_country_code', '+7');
+        $region = get_theme_mod('mytheme_main_phone_region_code', '');
+        $number = get_theme_mod('mytheme_main_phone_number', '');
+    } else {
+        $country = get_theme_mod('additional_phone_country_code', '+7');
+        $region = get_theme_mod('additional_phone_region_code', '');
+        $number = get_theme_mod('additional_phone_number', '');
+    }
+
+    if (empty($number)) {
+        return '';
+    }
+
+    // Удаляем все символы кроме цифр и +
+    $clean = preg_replace('/[^0-9+]/', '', $country . $region . $number);
+
+    return $clean;
+}
+
+// Подключение стилей и скриптов
+function mytheme_enqueue_scripts()
+{
+    // Общие стили для всех страниц
+    wp_enqueue_style('mytheme-fonts', get_template_directory_uri() . '/assets/css/fonts.css');
+    wp_enqueue_style('mytheme-root', get_template_directory_uri() . '/assets/css/root.css');
+    wp_enqueue_style('mytheme-animate', get_template_directory_uri() . '/assets/css/animate.min.css');
+
+    // Стили для главной страницы
+    if (is_front_page()) {
+        wp_enqueue_style('mytheme-style', get_template_directory_uri() . '/assets/css/style.css');
+        wp_enqueue_style('slick-css', get_template_directory_uri() . '/assets/css/slick/slick.css');
+        wp_enqueue_style('slick-theme', get_template_directory_uri() . '/assets/css/slick/slick-theme.css');
+    } else {
+        // Стили для внутренних страниц
+        wp_enqueue_style('mytheme-o-kurse', get_template_directory_uri() . '/assets/css/o-kurse.css');
+        wp_enqueue_style('mytheme-archive-kurse', get_template_directory_uri() . '/assets/css/archive-kurse.css');
+    }
+
+    // Отключаем стандартный jQuery и подключаем свой
+    wp_deregister_script('jquery');
+    wp_register_script('jquery', get_template_directory_uri() . '/assets/js/jquery.min.js', array(), null, true);
+    wp_enqueue_script('jquery');
+
+    // Общие скрипты (зависят от jQuery)
+    wp_enqueue_script('wow-js', get_template_directory_uri() . '/assets/js/wow.min.js', array('jquery'), null, true);
+    wp_enqueue_script('mytheme-main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), null, true);
+    wp_enqueue_script('mytheme-animations', get_template_directory_uri() . '/assets/js/animations.js', array('jquery', 'wow-js'), null, true);
+
+    // Скрипты для главной страницы
+    if (is_front_page()) {
+        wp_enqueue_script('slick-js', get_template_directory_uri() . '/assets/js/slick/slick.min.js', array('jquery'), null, true);
+        wp_enqueue_script('mytheme-do-slick', get_template_directory_uri() . '/assets/js/do.slick.js', array('jquery', 'slick-js'), null, true);
+    }
+
+    // Инлайн скрипт для категорий (для страниц с категориями)
+    if (is_page_template('page-catalog.php') || is_page_template('page-article.php') || is_page_template('page-requisites.php') || is_archive() || is_single()) {
+        $categories_script = "
+        jQuery(document).ready(function($) {
+            $(document).ready(function () {
+				// Обработчик для кнопки
+				$(document).on('click', '.g-categories__button', function (e) {
+					e.preventDefault();
+					e.stopPropagation();
+					$(this).parent().toggleClass('g-categories--opened');
+				});
+
+				// Закрытие меню при клике вне элемента
+				$(document).on('click', function (e) {
+					if (!$(e.target).closest('.g-categories').length) {
+						$('.g-categories').removeClass('g-categories--opened');
+					}
+				});
+			});
+        });
+        ";
+        wp_add_inline_script('mytheme-main', $categories_script);
+    }
+}
+add_action('wp_enqueue_scripts', 'mytheme_enqueue_scripts');
+
+// Добавление поддержки меню
+function mytheme_setup()
+{
+    register_nav_menus(array(
+        'primary' => 'Основное меню',
+    ));
+
+    add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+}
+add_action('after_setup_theme', 'mytheme_setup');
+
+// Регистрируем кастомный тип записи и таксономию
+function mytheme_register_post_types()
+{
+    // Тип записи "Советы"
+    register_post_type('sovety', array(
+        'labels' => array(
+            'name'               => 'Статьи и советы',
+            'singular_name'      => 'Статья',
+            'add_new'            => 'Добавить статью',
+            'add_new_item'       => 'Добавить новую статью',
+            'edit_item'          => 'Редактировать статью',
+            'new_item'           => 'Новая статья',
+            'view_item'          => 'Посмотреть статью',
+            'search_items'       => 'Найти статью',
+            'not_found'          => 'Статей не найдено',
+            'not_found_in_trash' => 'В корзине статей не найдено',
+            'menu_name'          => 'Статьи и советы',
+        ),
+        'public'              => true,
+        'has_archive'         => 'o-kurse/archive-kurse',
+        'rewrite'             => false, // Отключаем автоматический rewrite
+        'menu_icon'           => 'dashicons-media-document',
+        'supports'            => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'show_in_rest'        => true,
+        'show_in_nav_menus'   => true,
+        'taxonomies'          => array('category_sovety'),
+    ));
+
+    // Таксономия (категории) для советов
+    register_taxonomy('category_sovety', 'sovety', array(
+        'labels' => array(
+            'name'              => 'Категории советов',
+            'singular_name'     => 'Категория',
+            'search_items'      => 'Найти категорию',
+            'all_items'         => 'Все категории',
+            'edit_item'         => 'Редактировать категорию',
+            'update_item'       => 'Обновить категорию',
+            'add_new_item'      => 'Добавить категорию',
+            'new_item_name'     => 'Название новой категории',
+            'menu_name'         => 'Категории',
+        ),
+        'hierarchical'      => true,
+        'public'            => true,
+        'show_in_rest'      => true,
+        'show_in_nav_menus' => true,
+        'rewrite'           => array(
+            'slug'         => 'o-kurse/archive-kurse',
+            'with_front'   => false,
+            'hierarchical' => true,
+        ),
+    ));
+
+    // Тип записи "Каталог курсов"
+    register_post_type('catalog', array(
+        'labels' => array(
+            'name'               => 'Каталог курсов',
+            'singular_name'      => 'Курс',
+            'add_new'            => 'Добавить курс',
+            'add_new_item'       => 'Добавить новый курс',
+            'edit_item'          => 'Редактировать курс',
+            'new_item'           => 'Новый курс',
+            'view_item'          => 'Посмотреть курс',
+            'search_items'       => 'Найти курс',
+            'not_found'          => 'Курсов не найдено',
+            'not_found_in_trash' => 'В корзине курсов не найдено',
+            'menu_name'          => 'Каталог курсов',
+        ),
+        'public'              => true,
+        'has_archive'         => false,
+        'rewrite'             => array(
+            'slug'       => 'catalog',
+            'with_front' => false,
+        ),
+        'menu_icon'           => 'dashicons-book',
+        'supports'            => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'show_in_rest'        => true,
+        'show_in_nav_menus' => true,
+    ));
+
+    // Тип записи "Отзывы"
+    register_post_type('reviews', array(
+        'labels' => array(
+            'name'               => 'Отзывы',
+            'singular_name'      => 'Отзыв',
+            'add_new'            => 'Добавить отзыв',
+            'add_new_item'       => 'Добавить новый отзыв',
+            'edit_item'          => 'Редактировать отзыв',
+            'new_item'           => 'Новый отзыв',
+            'view_item'          => 'Посмотреть отзыв',
+            'search_items'       => 'Найти отзыв',
+            'not_found'          => 'Отзывы не найдены',
+            'not_found_in_trash' => 'В корзине отзывов не найдено',
+            'menu_name'          => 'Отзывы',
+        ),
+        'public'              => true,
+        'has_archive'         => true,
+        'rewrite'             => array(
+            'slug'       => 'reviews',
+            'with_front' => false,
+        ),
+        'menu_icon'           => 'dashicons-testimonial',
+        'supports'            => array('title', 'editor', 'thumbnail'),
+        'show_in_rest'        => false,
+        'show_in_nav_menus' => true,
+    ));
+}
+add_action('init', 'mytheme_register_post_types');
+
+// Добавляем кастомное правило rewrite для постов с категорией
+function mytheme_add_rewrite_rules()
+{
+    add_rewrite_rule(
+        '^o-kurse/archive-kurse/([^/]+)/([^/]+)/?$',
+        'index.php?sovety=$matches[2]&category_sovety=$matches[1]',
+        'top'
+    );
+}
+add_action('init', 'mytheme_add_rewrite_rules');
+
+// Фильтр для корректной обработки URL с категорией и записью
+function mytheme_post_type_permalink($url, $post)
+{
+    if ($post->post_type === 'sovety') {
+        $categories = get_the_terms($post->ID, 'category_sovety');
+        if ($categories && !is_wp_error($categories)) {
+            $category = array_shift($categories);
+            $url = home_url('/o-kurse/archive-kurse/' . $category->slug . '/' . $post->post_name . '/');
+        }
+    }
+    return $url;
+}
+add_filter('post_type_link', 'mytheme_post_type_permalink', 10, 2);
+
+// Сбрасываем rewrite rules при активации темы (запустите один раз)
+function mytheme_flush_rewrite_rules()
+{
+    mytheme_register_post_types();
+    mytheme_add_rewrite_rules();
+    flush_rewrite_rules();
+}
+register_activation_hook(__FILE__, 'mytheme_flush_rewrite_rules');
+
+// Вывод кода счетчиков в head
+function mytheme_analytics_head()
+{
+    $counter_code = get_theme_mod('mytheme_counter_head', '');
+    if (!empty($counter_code)) {
+        echo $counter_code;
+    }
+}
+add_action('wp_head', 'mytheme_analytics_head');
+
+// Вывод кода счетчиков перед </body>
+function mytheme_analytics_body()
+{
+    $counter_code = get_theme_mod('mytheme_counter_body', '');
+    if (!empty($counter_code)) {
+        echo $counter_code;
+    }
+}
+add_action('wp_footer', 'mytheme_analytics_body');
+
+/*** Отзывы ***/
+// Добавление мета-боксов для дополнительных полей
+function reviews_add_meta_boxes()
+{
+    add_meta_box(
+        'reviews_details',
+        'Информация об авторе отзыва',
+        'reviews_meta_box_callback',
+        'reviews',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'reviews_add_meta_boxes');
+
+// Вывод полей в мета-боксе
+function reviews_meta_box_callback($post)
+{
+    wp_nonce_field('reviews_save_meta', 'reviews_nonce');
+
+    $author_name = get_post_meta($post->ID, '_review_author_name', true);
+    $author_position = get_post_meta($post->ID, '_review_author_position', true);
+?>
+    <p>
+        <label><strong>Имя автора отзыва:</strong></label><br>
+        <input type="text" name="review_author_name" value="<?php echo esc_attr($author_name); ?>" style="width: 100%;">
+    </p>
+    <p>
+        <label><strong>Должность:</strong></label><br>
+        <input type="text" name="review_author_position" value="<?php echo esc_attr($author_position); ?>" style="width: 100%;">
+    </p>
+<?php
+}
+
+// Сохранение данных мета-полей
+function reviews_save_meta_box_data($post_id)
+{
+    if (!isset($_POST['reviews_nonce']) || !wp_verify_nonce($_POST['reviews_nonce'], 'reviews_save_meta')) {
+        return;
+    }
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    if (isset($_POST['review_author_name'])) {
+        update_post_meta($post_id, '_review_author_name', sanitize_text_field($_POST['review_author_name']));
+    }
+    if (isset($_POST['review_author_position'])) {
+        update_post_meta($post_id, '_review_author_position', sanitize_text_field($_POST['review_author_position']));
+    }
+}
+add_action('save_post', 'reviews_save_meta_box_data');
+
+/*** НАСТРОЙКИ ТЕМЫ В CUSTOMIZER ***/
+function mytheme_customize_register($wp_customize)
+{
+
+    // СЕКЦИЯ: Аналитика и счетчики
+    $wp_customize->add_section('mytheme_analytics', array(
+        'title'      => 'Аналитика и счетчики',
+        'priority'   => 200,
+        'capability' => 'edit_theme_options',
+    ));
+
+    // Код счетчика (head)
+    $wp_customize->add_setting('mytheme_counter_head', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'wp_kses_post',
+        'capability'        => 'edit_theme_options',
+    ));
+    $wp_customize->add_control('mytheme_counter_head', array(
+        'label'       => 'Код счетчика (в <head>)',
+        'description' => 'Вставьте код, который должен быть в <head> (например, Google Analytics, Meta Pixel)',
+        'section'     => 'mytheme_analytics',
+        'type'        => 'textarea',
+    ));
+
+    // Код счетчика (body)
+    $wp_customize->add_setting('mytheme_counter_body', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'wp_kses_post',
+        'capability'        => 'edit_theme_options',
+    ));
+    $wp_customize->add_control('mytheme_counter_body', array(
+        'label'       => 'Код счетчика (перед </body>)',
+        'description' => 'Вставьте код, который должен быть перед закрывающим тегом </body> (например, Яндекс.Метрика)',
+        'section'     => 'mytheme_analytics',
+        'type'        => 'textarea',
+    ));
+
+    // ПАНЕЛЬ: Контакты
+    $wp_customize->add_panel('contact_panel', array(
+        'title'       => 'Контакты',
+        'description' => 'Настройки контактной информации',
+        'priority'    => 30,
+        'capability'  => 'edit_theme_options',
+    ));
+
+    // СЕКЦИЯ: Основной номер телефона
+    $wp_customize->add_section('mytheme_contacts', array(
+        'title'      => 'Основной номер телефона',
+        'panel'      => 'contact_panel',
+        'priority'   => 5,
+        'capability' => 'edit_theme_options',
+    ));
+
+    // Код страны основного телефона
+    $wp_customize->add_setting('mytheme_main_phone_country_code', array(
+        'default'           => '+7',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_main_phone_country_code', array(
+        'label'       => 'Код страны',
+        'description' => 'Например: 8 или +7',
+        'section'     => 'mytheme_contacts',
+        'type'        => 'text',
+    ));
+
+    // Код региона основного телефона
+    $wp_customize->add_setting('mytheme_main_phone_region_code', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_main_phone_region_code', array(
+        'label'       => 'Код региона',
+        'description' => 'Например: 800, без скобок',
+        'section'     => 'mytheme_contacts',
+        'type'        => 'text',
+    ));
+
+    // Основной номер телефона
+    $wp_customize->add_setting('mytheme_main_phone_number', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_main_phone_number', array(
+        'label'       => 'Номер телефона',
+        'description' => 'Например: 880-80-88',
+        'section'     => 'mytheme_contacts',
+        'type'        => 'text',
+    ));
+
+    // Рабочее время телефона
+    $wp_customize->add_setting('mytheme_phone_work_time', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_phone_work_time', array(
+        'label'       => 'Рабочее время телефона',
+        'description' => 'Например: с 9:00 до 18:00',
+        'section'     => 'mytheme_contacts',
+        'type'        => 'text',
+    ));
+
+    // СЕКЦИЯ: Дополнительный номер телефона
+    $wp_customize->add_section('additional_phone_number', array(
+        'title'    => 'Дополнительный номер телефона',
+        'panel'    => 'contact_panel',
+        'priority' => 10
+    ));
+
+    // Код страны дополнительного телефона
+    $wp_customize->add_setting('additional_phone_country_code', array(
+        'default'           => '+7',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('additional_phone_country_code', array(
+        'label'       => 'Код страны',
+        'description' => 'Например: 8 или +7',
+        'section'     => 'additional_phone_number',
+        'type'        => 'text',
+    ));
+
+    // Код региона дополнительного телефона
+    $wp_customize->add_setting('additional_phone_region_code', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('additional_phone_region_code', array(
+        'label'       => 'Код региона',
+        'description' => 'Например: 800, без скобок',
+        'section'     => 'additional_phone_number',
+        'type'        => 'text',
+    ));
+
+    // Дополнительный номер телефона
+    $wp_customize->add_setting('additional_phone_number', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('additional_phone_number', array(
+        'label'       => 'Номер телефона',
+        'description' => 'Например: 880-80-88',
+        'section'     => 'additional_phone_number',
+        'type'        => 'text',
+    ));
+
+    // СЕКЦИЯ: Email
+    $wp_customize->add_section('mytheme_contacts_email', array(
+        'title'    => 'Email',
+        'panel'    => 'contact_panel',
+        'priority' => 15
+    ));
+
+    $wp_customize->add_setting('mytheme_email', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_email',
+    ));
+    $wp_customize->add_control('mytheme_email', array(
+        'label'   => 'Email',
+        'section' => 'mytheme_contacts_email',
+        'type'    => 'email',
+    ));
+
+    // СЕКЦИЯ: Telegram
+    $wp_customize->add_section('mytheme_contacts_telegram', array(
+        'title'    => 'Telegram',
+        'panel'    => 'contact_panel',
+        'priority' => 20
+    ));
+
+    $wp_customize->add_setting('mytheme_telegram', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('mytheme_telegram', array(
+        'label'       => 'Telegram',
+        'description' => 'Укажите ссылку на Telegram',
+        'section'     => 'mytheme_contacts_telegram',
+        'type'        => 'url',
+    ));
+
+    // СЕКЦИЯ: WhatsApp
+    $wp_customize->add_section('mytheme_contacts_whatsapp', array(
+        'title'    => 'WhatsApp',
+        'panel'    => 'contact_panel',
+        'priority' => 25
+    ));
+
+    $wp_customize->add_setting('mytheme_whatsapp', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('mytheme_whatsapp', array(
+        'label'       => 'WhatsApp',
+        'description' => 'Укажите ссылку на WhatsApp',
+        'section'     => 'mytheme_contacts_whatsapp',
+        'type'        => 'url',
+    ));
+
+    // СЕКЦИЯ: Вконтакте
+    $wp_customize->add_section('mytheme_contacts_vk', array(
+        'title'    => 'Вконтакте',
+        'panel'    => 'contact_panel',
+        'priority' => 30
+    ));
+
+    $wp_customize->add_setting('mytheme_vk', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('mytheme_vk', array(
+        'label'       => 'Вконтакте',
+        'description' => 'Укажите ссылку на Вконтакте',
+        'section'     => 'mytheme_contacts_vk',
+        'type'        => 'url',
+    ));
+
+    // СЕКЦИЯ: Одноклассники
+    $wp_customize->add_section('mytheme_contacts_ok', array(
+        'title'    => 'Одноклассники',
+        'panel'    => 'contact_panel',
+        'priority' => 35
+    ));
+
+    $wp_customize->add_setting('mytheme_ok', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('mytheme_ok', array(
+        'label'       => 'Одноклассники',
+        'description' => 'Укажите ссылку на Одноклассники',
+        'section'     => 'mytheme_contacts_ok',
+        'type'        => 'url',
+    ));
+
+    // СЕКЦИЯ: Рутуб
+    $wp_customize->add_section('mytheme_contacts_rutube', array(
+        'title'    => 'Рутуб',
+        'panel'    => 'contact_panel',
+        'priority' => 40
+    ));
+
+    $wp_customize->add_setting('mytheme_rutube', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('mytheme_rutube', array(
+        'label'       => 'Рутуб',
+        'description' => 'Укажите ссылку на Рутуб',
+        'section'     => 'mytheme_contacts_rutube',
+        'type'        => 'url',
+    ));
+
+    // СЕКЦИЯ: Адрес
+    $wp_customize->add_section('mytheme_contacts_address', array(
+        'title'    => 'Адрес',
+        'panel'    => 'contact_panel',
+        'priority' => 45
+    ));
+
+    $wp_customize->add_setting('mytheme_address', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_address', array(
+        'label'       => 'Адрес',
+        'description' => 'Укажите адрес организации',
+        'section'     => 'mytheme_contacts_address',
+        'type'        => 'text',
+    ));
+
+    // СЕКЦИЯ: Время работы
+    $wp_customize->add_section('mytheme_contacts_job_time', array(
+        'title'    => 'Время работы',
+        'panel'    => 'contact_panel',
+        'priority' => 50
+    ));
+
+    $wp_customize->add_setting('mytheme_job_time', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_job_time', array(
+        'label'       => 'Рабочее время',
+        'description' => 'Например: Пн-Пт: 9:00-18:00',
+        'section'     => 'mytheme_contacts_job_time',
+        'type'        => 'text',
+    ));
+
+    $wp_customize->add_setting('mytheme_weekend', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_weekend', array(
+        'label'       => 'Выходные дни',
+        'description' => 'Например: Сб, Вс - выходные',
+        'section'     => 'mytheme_contacts_job_time',
+        'type'        => 'text',
+    ));
+
+    // СЕКЦИЯ: Реквизиты
+    $wp_customize->add_section('mytheme_contacts_requisites', array(
+        'title'    => 'Реквизиты',
+        'panel'    => 'contact_panel',
+        'priority' => 55
+    ));
+
+    $wp_customize->add_setting('mytheme_company_name', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_company_name', array(
+        'label'       => 'Название компании',
+        'description' => 'Например: ООО Компания «Название»',
+        'section'     => 'mytheme_contacts_requisites',
+        'type'        => 'text',
+    ));
+
+    $wp_customize->add_setting('mytheme_legal_address', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_legal_address', array(
+        'label'       => 'Юридический адрес',
+        'description' => 'Полный юридический адрес организации',
+        'section'     => 'mytheme_contacts_requisites',
+        'type'        => 'text',
+    ));
+
+    $wp_customize->add_setting('mytheme_inn', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_inn', array(
+        'label'   => 'ИНН',
+        'section' => 'mytheme_contacts_requisites',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('mytheme_ogrn', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_ogrn', array(
+        'label'   => 'ОГРНИП',
+        'section' => 'mytheme_contacts_requisites',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('mytheme_kpp', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_kpp', array(
+        'label'   => 'КПП',
+        'section' => 'mytheme_contacts_requisites',
+        'type'    => 'text',
+    ));
+
+    // СЕКЦИЯ: Координаты для карт
+    $wp_customize->add_section('mytheme_contacts_coordinates', array(
+        'title'    => 'Координаты для карт',
+        'panel'    => 'contact_panel',
+        'priority' => 60
+    ));
+
+    $wp_customize->add_setting('mytheme_latitude', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_latitude', array(
+        'label'       => 'Широта',
+        'description' => 'Например: 55.751244',
+        'section'     => 'mytheme_contacts_coordinates',
+        'type'        => 'text',
+    ));
+
+    $wp_customize->add_setting('mytheme_longitude', array(
+        'default'           => '',
+        'transport'         => 'refresh',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('mytheme_longitude', array(
+        'label'       => 'Долгота',
+        'description' => 'Например: 37.618423',
+        'section'     => 'mytheme_contacts_coordinates',
+        'type'        => 'text',
+    ));
+
+    // СЕКЦИЯ: Изображение документа
+    $wp_customize->add_section('document_image_section', array(
+        'title'    => 'Изображение документа',
+        'priority' => 30
+    ));
+
+    // Настройка для изображения документа
+    $wp_customize->add_setting('document_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'document_image', array(
+        'label'    => 'Загрузить изображение документа',
+        'section'  => 'document_image_section',
+        'settings' => 'document_image',
+    )));
+}
+add_action('customize_register', 'mytheme_customize_register');
+
+/**
+ * Регистрация кастомного блока для изображения с подписью
+ */
+
+function register_image_caption_block()
+{
+    // Регистрируем блок
+    register_block_type('mytheme/image-caption', array(
+        'render_callback' => 'render_image_caption_block',
+        'attributes' => array(
+            'imageUrl' => array(
+                'type' => 'string',
+                'default' => ''
+            ),
+            'imageId' => array(
+                'type' => 'number',
+                'default' => 0
+            ),
+            'caption' => array(
+                'type' => 'string',
+                'default' => 'Краткое описание'
+            ),
+            'alignment' => array(
+                'type' => 'string',
+                'default' => 'right'
+            )
+        )
+    ));
+}
+add_action('init', 'register_image_caption_block');
+
+// Функция рендеринга блока
+function render_image_caption_block($attributes)
+{
+    $image_url = !empty($attributes['imageUrl']) ? esc_url($attributes['imageUrl']) : '';
+    $caption = !empty($attributes['caption']) ? esc_html($attributes['caption']) : 'Краткое описание';
+    $alignment = !empty($attributes['alignment']) ? esc_attr($attributes['alignment']) : 'right';
+
+    if (empty($image_url)) {
+        return '';
+    }
+
+    ob_start();
+?>
+    <div class="lpc-content-wrapper">
+        <div class="decor-wrap">
+            <div class="lpc-elements-text-3 lpc-block" style="max-width: 1309px">
+                <div class="lpc-elements-text-3__wrap lpc-wrap">
+                    <div class="lpc-elements-text-3__inner">
+                        <div class="lpc-elements-text-3__row lpc-row js-lg-init">
+                            <div class="lpc-col-4-xl lpc-col-4-lg lpc-col-6-md lpc-col-6-sm lpc-col-12-xs lpc-elements-text-3__photos _<?php echo $alignment; ?>">
+                                <div class="lpc-elements-text-3__photo-wrap">
+                                    <a href="<?php echo $image_url; ?>" class="lpc-image-type-1 lg-item lpc-elements-text-3__photo lp-selected-element">
+                                        <img src="<?php echo $image_url; ?>" alt="<?php echo $caption; ?>" class="">
+                                    </a>
+                                </div>
+                                <div class="lpc-elements-text-3__img-title lp-header-title-6"><?php echo $caption; ?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php
+    return ob_get_clean();
+}
+
+// Подключаем JavaScript для редактора
+function enqueue_image_caption_block_editor_assets()
+{
+    wp_enqueue_script(
+        'image-caption-block-editor',
+        get_template_directory_uri() . '/js/image-caption-block.js',
+        array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n'),
+        filemtime(get_template_directory() . '/js/image-caption-block.js')
+    );
+}
+add_action('enqueue_block_editor_assets', 'enqueue_image_caption_block_editor_assets');
+
+/**
+ * Оборачиваем все теги <strong> в <span style="font-weight: bold">
+ */
+function wrap_strong_tags_in_span($content)
+{
+    // Заменяем <strong> на <span style="font-weight: bold"><strong>
+    $content = preg_replace('/<strong>/i', '<span style="font-weight: bold"><strong>', $content);
+
+    // Заменяем </strong> на </strong></span>
+    $content = preg_replace('/<\/strong>/i', '</strong></span>', $content);
+
+    return $content;
+}
+add_filter('the_content', 'wrap_strong_tags_in_span', 20);
+
+
+/***
+ * Перевод языка при сохранении
+ */
+require_once get_template_directory() . '/inc/transliteration.php';
+
+
+// Кастомный Walker для меню
+class Custom_Walker_Nav_Menu extends Walker_Nav_Menu
+{
+
+    // Начало элемента меню
+    function start_el(&$output, $item, $depth = 0, $args = null, $id = 0)
+    {
+        $classes = empty($item->classes) ? array() : (array) $item->classes;
+
+        // Классы для li
+        if ($depth == 0) {
+            $li_class = 'hor-menu__item hor-menu__item--u-iggcx09k2';
+            if (in_array('current-menu-item', $classes) || in_array('current_page_item', $classes)) {
+                $li_class .= ' is-current';
+            }
+            if (in_array('menu-item-has-children', $classes)) {
+                $li_class .= ' has-child';
+            }
+        } else {
+            $li_class = 'hor-menu__sub_item hor-menu__sub_item--u-i39wcd8zh';
+        }
+
+        $output .= '<li class="' . esc_attr($li_class) . '">';
+
+        // Ссылка
+        $link_class = ($depth == 0) ? 'hor-menu__link hor-menu__link--u-ix575hv02' : 'hor-menu__sub_link hor-menu__sub_link--u-i2g1xria8';
+        $text_class = ($depth == 0) ? 'hor-menu__text hor-menu__text--u-ihigo1c04' : 'hor-menu__sub_text hor-menu__sub_text--u-i4ranael9';
+
+        $output .= '<a href="' . esc_url($item->url) . '" class="' . $link_class . '">';
+        $output .= '<span class="' . $text_class . '">';
+        $output .= '<span class="text-block-wrap-div">' . esc_html($item->title) . '</span>';
+        $output .= '</span>';
+
+        // Иконка для пунктов с подменю
+        if ($depth == 0 && in_array('menu-item-has-children', $classes)) {
+            $output .= '<span class="hor-menu__icon hor-menu__icon--u-i9c9ipswi"></span>';
+        }
+
+        $output .= '</a>';
+    }
+
+    // Начало подменю
+    function start_lvl(&$output, $depth = 0, $args = null)
+    {
+        $output .= '<ul class="hor-menu__sub_list hor-menu__sub_list--u-isqrmm3bo">';
+    }
+
+    // Конец подменю
+    function end_lvl(&$output, $depth = 0, $args = null)
+    {
+        $output .= '</ul>';
+    }
+}
+
+// Кастомный Walker для мобильного меню
+class Custom_Walker_Mobile_Menu extends Walker_Nav_Menu {
+    
+    // Начало элемента меню
+    function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $classes = empty($item->classes) ? array() : (array) $item->classes;
+        
+        // Классы для li
+        if ($depth == 0) {
+            $li_class = 'ver-menu__item ver-menu__item--u-iqzz9fwq5';
+            if (in_array('current-menu-item', $classes) || in_array('current_page_item', $classes)) {
+                $li_class .= ' is-current';
+            }
+        } else {
+            $li_class = 'ver-menu__sub_item ver-menu__sub_item--u-iyx2p1dql';
+        }
+        
+        $output .= '<li class="' . esc_attr($li_class) . '">';
+        
+        // Ссылка
+        $link_class = ($depth == 0) ? 'ver-menu__link ver-menu__link--u-iuy5nlram' : 'ver-menu__sub_link ver-menu__sub_link--u-if7yalyxx';
+        $text_class = ($depth == 0) ? 'ver-menu__text ver-menu__text--u-ios9ejiha' : 'ver-menu__sub_text ver-menu__sub_text--u-if56rjs3u';
+        
+        $output .= '<a href="' . esc_url($item->url) . '" class="' . $link_class . '">';
+        $output .= '<span class="' . $text_class . '">';
+        $output .= '<span class="text-block-wrap-div">' . esc_html($item->title) . '</span>';
+        $output .= '</span>';
+        
+        // Иконка для пунктов с подменю
+        if ($depth == 0 && in_array('menu-item-has-children', $classes)) {
+            $output .= '<span class="ver-menu__icon ver-menu__icon--u-iwh6la5fa"></span>';
+        }
+        
+        $output .= '</a>';
+    }
+    
+    // Начало подменю
+    function start_lvl(&$output, $depth = 0, $args = null) {
+        $output .= '<ul class="ver-menu__sub_list ver-menu__sub_list--u-i2jwjmlfb">';
+    }
+    
+    // Конец подменю
+    function end_lvl(&$output, $depth = 0, $args = null) {
+        $output .= '</ul>';
+    }
+}
