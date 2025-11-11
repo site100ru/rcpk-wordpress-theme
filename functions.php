@@ -393,7 +393,7 @@ function mytheme_customize_register($wp_customize)
     $wp_customize->add_panel('contact_panel', array(
         'title'       => 'Контакты',
         'description' => 'Настройки контактной информации',
-        'priority'    => 30,
+        'priority'    => 300,
         'capability'  => 'edit_theme_options',
     ));
 
@@ -764,7 +764,7 @@ function mytheme_customize_register($wp_customize)
     // СЕКЦИЯ: Изображение документа
     $wp_customize->add_section('document_image_section', array(
         'title'    => 'Изображение документа',
-        'priority' => 30
+        'priority' => 200
     ));
 
     // Настройка для изображения документа
