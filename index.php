@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template Name: Front Page
+ * Template Name: Главная страница
  * Description: Шаблон для главной страницы
  */
 ?>
@@ -491,7 +491,7 @@
                                 <span class="text-block-wrap-div">Сделайте шаг к новой карьере</span>
                             </div>
                             <div class="heading heading--u-i1sycf41t">
-                                <span class="text-block-wrap-div">Повышение <br />квалификации <br />в Москве</span>
+                                <span class="text-block-wrap-div">Обучение, повышение квалификации, <br /> переподготовка специалистов по всей России</span>
                             </div>
                             <div class="text text--u-iz4awmpyc">
                                 <span class="text-block-wrap-div">Учебные программы, одобренные работодателями. Индивидуальное сопровождение</span>
