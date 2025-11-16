@@ -712,3 +712,18 @@ p:first-child {
 		width: calc(100% - 16px);
 	}
 }
+
+.root.root--u-ibcywfqup {
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.root--u-ibcywfqup::before, 
+.root--u-ibcywfqup::after {
+    content: none !important;
+}
+
+.section.section--u-i1mm52hsj {
+    margin-bottom: auto;
+}
