@@ -285,58 +285,60 @@
                 <div class="div div--u-ibl6xyh2p">
                     <div class="section section--u-ie41r58os">
                         <div class="div div--u-ige14ztwb">
-                            <!-- Телефон -->
-                            <div class="div div--u-iz7p7tcug">
-                                <div class="list list--u-i99wkb6ie">
-                                    <?php
-                                    $phone_display = '';
-                                    $phone_link = '';
-                                    if (function_exists('mytheme_get_phone')) {
-                                        $phone_display = mytheme_get_phone('main');
-                                        $phone_link = mytheme_get_phone_link('main');
-                                    }
-                                    if (!empty($phone_display)):
-                                    ?>
-                                        <div class="list__item list__item--u-iqvnaqrvp">
-                                            <a target="_self" href="tel:<?php echo esc_attr($phone_link); ?>" class="link-universal link-universal--u-i2gx7d7z2">
-                                                <div class="text text--u-ivur73rjr">
-                                                    <span class="text-block-wrap-div"><?php echo esc_html($phone_display); ?></span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-
-                            <!-- Дополнительный телефон -->
-                            <div class="div div--u-ida5z40u2">
-                                <div class="list list--u-i8xxmxuqc">
-                                    <?php
-                                    $additional_phone_country = get_theme_mod('additional_phone_country_code', '+7');
-                                    $additional_phone_region = get_theme_mod('additional_phone_region_code', '');
-                                    $additional_phone_number = get_theme_mod('additional_phone_number', '');
-                                    
-                                    if (!empty($additional_phone_number)):
-                                        // Формируем отображаемый номер
-                                        $additional_phone_display = $additional_phone_country;
-                                        if (!empty($additional_phone_region)) {
-                                            $additional_phone_display .= ' (' . $additional_phone_region . ') ';
-                                        } else {
-                                            $additional_phone_display .= ' ';
+                            <div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+                                <!-- Телефон -->
+                                <div class="div div--u-iz7p7tcug">
+                                    <div class="list list--u-i99wkb6ie">
+                                        <?php
+                                        $phone_display = '';
+                                        $phone_link = '';
+                                        if (function_exists('mytheme_get_phone')) {
+                                            $phone_display = mytheme_get_phone('main');
+                                            $phone_link = mytheme_get_phone_link('main');
                                         }
-                                        $additional_phone_display .= $additional_phone_number;
+                                        if (!empty($phone_display)):
+                                        ?>
+                                            <div class="list__item list__item--u-iqvnaqrvp">
+                                                <a target="_self" href="tel:<?php echo esc_attr($phone_link); ?>" class="link-universal link-universal--u-i2gx7d7z2">
+                                                    <div class="text text--u-ivur73rjr">
+                                                        <span class="text-block-wrap-div"><?php echo esc_html($phone_display); ?></span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                                <!-- Дополнительный телефон -->
+                                <div class="div div--u-iz7p7tcug">
+                                    <div class="list list--u-i99wkb6ie">
+                                        <?php
+                                        $additional_phone_country = get_theme_mod('additional_phone_country_code', '+7');
+                                        $additional_phone_region = get_theme_mod('additional_phone_region_code', '');
+                                        $additional_phone_number = get_theme_mod('additional_phone_number', '');
                                         
-                                        // Формируем ссылку (только цифры и +)
-                                        $additional_phone_link = preg_replace('/[^0-9+]/', '', $additional_phone_country . $additional_phone_region . $additional_phone_number);
-                                    ?>
-                                        <div class="list__item list__item--u-if57zb42r">
-                                            <a target="_self" href="tel:<?php echo esc_attr($additional_phone_link); ?>" class="link-universal link-universal--u-i2gx7d7z2">
-                                                <div class="text text--u-iks06b845">
-                                                    <span class="text-block-wrap-div"><?php echo esc_html($additional_phone_display); ?></span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    <?php endif; ?>
+                                        if (!empty($additional_phone_number)):
+                                            // Формируем отображаемый номер
+                                            $additional_phone_display = $additional_phone_country;
+                                            if (!empty($additional_phone_region)) {
+                                                $additional_phone_display .= ' (' . $additional_phone_region . ') ';
+                                            } else {
+                                                $additional_phone_display .= ' ';
+                                            }
+                                            $additional_phone_display .= $additional_phone_number;
+                                            
+                                            // Формируем ссылку (только цифры и +)
+                                            $additional_phone_link = preg_replace('/[^0-9+]/', '', $additional_phone_country . $additional_phone_region . $additional_phone_number);
+                                        ?>
+                                            <div class="list__item list__item--u-iqvnaqrvp">
+                                                <a target="_self" href="tel:<?php echo esc_attr($additional_phone_link); ?>" class="link-universal link-universal--u-i2gx7d7z2">
+                                                    <div class="text text--u-ivur73rjr">
+                                                        <span class="text-block-wrap-div"><?php echo esc_html($additional_phone_display); ?></span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                             </div>
 
