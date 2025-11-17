@@ -458,7 +458,7 @@
                                 <div class="div div--u-iah4jl8a7">
 									<a href="index.html" class="link-universal link-universal--u-iljh3vrqf">
 										<div class="text text--u-iedrbdreu">
-											<span class="text-block-wrap-div">Региональный центр<br/> повышения квалификации</span>
+											<span class="text-block-wrap-div">Региональный центр повышения квалификации</span>
 										</div>
 									</a>
 								</div>

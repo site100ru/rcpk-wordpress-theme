@@ -4638,7 +4638,7 @@
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	max-width: 500px;
+	max-width: 700px;
 	flex-wrap: wrap;
 	-webkit-box-orient: horizontal;
 	-webkit-box-direction: normal;
@@ -8934,6 +8934,11 @@
 	.div--u-iz7p7tcug {
 		padding-right: 0px;
 	}
+
+    .div--u-is6pr6s7f  .text-block-wrap-div {
+        display: block;
+        max-width: 300px
+    }
 }
 
 @media (max-width: 767px) {
