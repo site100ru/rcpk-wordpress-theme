@@ -317,7 +317,39 @@
                                 </div>
                             </div>
 
-                            <!-- Адрес -->
+                            <!-- Дополнительный телефон -->
+                            <div class="div div--u-ida5z40u2">
+                                <div class="list list--u-i8xxmxuqc">
+                                    <?php
+                                    $additional_phone_country = get_theme_mod('additional_phone_country_code', '+7');
+                                    $additional_phone_region = get_theme_mod('additional_phone_region_code', '');
+                                    $additional_phone_number = get_theme_mod('additional_phone_number', '');
+                                    
+                                    if (!empty($additional_phone_number)):
+                                        // Формируем отображаемый номер
+                                        $additional_phone_display = $additional_phone_country;
+                                        if (!empty($additional_phone_region)) {
+                                            $additional_phone_display .= ' (' . $additional_phone_region . ') ';
+                                        } else {
+                                            $additional_phone_display .= ' ';
+                                        }
+                                        $additional_phone_display .= $additional_phone_number;
+                                        
+                                        // Формируем ссылку (только цифры и +)
+                                        $additional_phone_link = preg_replace('/[^0-9+]/', '', $additional_phone_country . $additional_phone_region . $additional_phone_number);
+                                    ?>
+                                        <div class="list__item list__item--u-if57zb42r">
+                                            <a target="_self" href="tel:<?php echo esc_attr($additional_phone_link); ?>" class="link-universal link-universal--u-i2gx7d7z2">
+                                                <div class="text text--u-iks06b845">
+                                                    <span class="text-block-wrap-div"><?php echo esc_html($additional_phone_display); ?></span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                            <!-- Адрес (закомментирован)
                             <div class="div div--u-ida5z40u2">
                                 <div class="list list--u-i8xxmxuqc">
                                     <?php if (get_theme_mod('mytheme_address')): ?>
@@ -329,6 +361,7 @@
                                     <?php endif; ?>
                                 </div>
                             </div>
+                            -->
 
                             <!-- WhatsApp -->
                             <div class="div div--u-if8m6hfjg">
