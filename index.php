@@ -533,7 +533,7 @@
                                 <span class="text-block-wrap-div">Сделайте шаг к новой карьере</span>
                             </div>
                             <div class="heading heading--u-i1sycf41t">
-                                <span class="text-block-wrap-div">Переподготовка,<br>повышение квалификации,<br>и обучение по всей России</span>
+                                <span class="text-block-wrap-div">Переподготовка,<br>повышение квалификации,<br>обучение по всей России</span>
                             </div>
                             <div class="text text--u-iz4awmpyc">
                                 <span class="text-block-wrap-div">Учебные программы, одобренные высшими учебными заведениями. Индивидуальное сопровождение.</span>
