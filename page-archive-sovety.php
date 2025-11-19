@@ -16,12 +16,12 @@ get_header();
             </a>
             <span class="mosaic-crumbs__delimiter mosaic-crumbs__delimiter--u-i85f67ptd">/</span>
             <span class="mosaic-crumbs__last mosaic-crumbs__last--u-i4m0w84oi">
-                <span class="text-block-wrap-div">Статьи и советы</span>
+                <span class="text-block-wrap-div">Новости</span>
             </span>
         </div>
 
         <!-- Заголовок страницы -->
-        <h1 class="page-title page-title--u-ipo71g40j">Статьи и советы</h1>
+        <h1 class="page-title page-title--u-ipo71g40j">Новости</h1>
 
         <div class="content content--u-iwo7oqyms">
             <div class="g-page g-page-article g-page-article--main">

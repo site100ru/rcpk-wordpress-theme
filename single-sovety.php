@@ -25,7 +25,7 @@ get_header();
             <span class="mosaic-crumbs__delimiter mosaic-crumbs__delimiter--u-i85f67ptd">/</span>
             
             <a href="/o-kurse/sovety/" class="mosaic-crumbs__item_link mosaic-crumbs__item_link--u-ion7bivdc">
-                <span class="text-block-wrap-div">Статьи и советы</span>
+                <span class="text-block-wrap-div">Новости</span>
             </a>
             <span class="mosaic-crumbs__delimiter mosaic-crumbs__delimiter--u-i85f67ptd">/</span>
             
