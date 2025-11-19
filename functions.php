@@ -245,7 +245,7 @@ function mytheme_add_rewrite_rules()
 {
     add_rewrite_rule(
         '^o-kurse/archive-kurse/([^/]+)/([^/]+)/?$',
-        'index.php?sovety=$matches[2]&category_sovety=$matches[1]',
+        'index.php?novosti=$matches[2]&category_novosti=$matches[1]',
         'top'
     );
 }
@@ -254,8 +254,8 @@ add_action('init', 'mytheme_add_rewrite_rules');
 // Фильтр для корректной обработки URL с категорией и записью
 function mytheme_post_type_permalink($url, $post)
 {
-    if ($post->post_type === 'sovety') {
-        $categories = get_the_terms($post->ID, 'category_sovety');
+    if ($post->post_type === 'novosti') {
+        $categories = get_the_terms($post->ID, 'category_novosti');
         if ($categories && !is_wp_error($categories)) {
             $category = array_shift($categories);
             $url = home_url('/o-kurse/archive-kurse/' . $category->slug . '/' . $post->post_name . '/');

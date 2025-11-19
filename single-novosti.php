@@ -1,5 +1,5 @@
 <?php 
-// single-sovety.php - шаблон для отдельного поста типа 'sovety'
+// single-novosti.php - шаблон для отдельного поста типа 'novosti'
 get_header();
 ?>
 
@@ -9,7 +9,7 @@ get_header();
         <?php
         // Хлебные крошки
         if (have_posts()) : the_post();
-            $categories = get_the_terms(get_the_ID(), 'category_sovety');
+            $categories = get_the_terms(get_the_ID(), 'category_novosti');
             $category = (!empty($categories) && !is_wp_error($categories)) ? array_shift($categories) : null;
         ?>
         
@@ -24,7 +24,7 @@ get_header();
             </a>
             <span class="mosaic-crumbs__delimiter mosaic-crumbs__delimiter--u-i85f67ptd">/</span>
             
-            <a href="/o-kurse/sovety/" class="mosaic-crumbs__item_link mosaic-crumbs__item_link--u-ion7bivdc">
+            <a href="/o-kurse/novosti/" class="mosaic-crumbs__item_link mosaic-crumbs__item_link--u-ion7bivdc">
                 <span class="text-block-wrap-div">Новости</span>
             </a>
             <span class="mosaic-crumbs__delimiter mosaic-crumbs__delimiter--u-i85f67ptd">/</span>

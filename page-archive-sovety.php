@@ -30,7 +30,7 @@ get_header();
                     <?php
                     // Получаем все категории
                     $categories = get_terms(array(
-                        'taxonomy' => 'category_sovety',
+                        'taxonomy' => 'category_novosti',
                         'hide_empty' => false,
                     ));
 
@@ -60,9 +60,9 @@ get_header();
                 <!-- Вывод статей -->
                 <div class="g-article-list">
                     <?php
-                    // Запрос на получение постов типа 'sovety'
+                    // Запрос на получение постов типа 'novosti'
                     $args = array(
-                        'post_type' => 'sovety',
+                        'post_type' => 'novosti',
                         'posts_per_page' => -1, // Выводим все посты (без пагинации)
                     );
                     $query = new WP_Query($args);

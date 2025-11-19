@@ -1,5 +1,5 @@
 <?php
-/* Template для таксономии category_sovety */
+/* Template для таксономии category_novosti */
 get_header();
 
 // Получаем текущую категорию
@@ -20,7 +20,7 @@ $current_term = get_queried_object();
             </a>
             <span class="mosaic-crumbs__delimiter mosaic-crumbs__delimiter--u-i85f67ptd">/</span>
             
-            <a href="/o-kurse/sovety/" class="mosaic-crumbs__item_link mosaic-crumbs__item_link--u-ion7bivdc">
+            <a href="/o-kurse/novosti/" class="mosaic-crumbs__item_link mosaic-crumbs__item_link--u-ion7bivdc">
                 <span class="text-block-wrap-div">Новости</span>
             </a>
             <span class="mosaic-crumbs__delimiter mosaic-crumbs__delimiter--u-i85f67ptd">/</span>
@@ -38,7 +38,7 @@ $current_term = get_queried_object();
                 <?php
                 // Получаем все категории
                 $categories = get_terms(array(
-                    'taxonomy' => 'category_sovety',
+                    'taxonomy' => 'category_novosti',
                     'hide_empty' => false,
                 ));
 
