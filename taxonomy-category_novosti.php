@@ -73,11 +73,11 @@ $current_term = get_queried_object();
                     <?php
                     // Запрос на получение постов из текущей категории
                     $args = array(
-                        'post_type' => 'sovety',
+                        'post_type' => 'novosti',
                         'posts_per_page' => -1,
                         'tax_query' => array(
                             array(
-                                'taxonomy' => 'category_sovety',
+                                'taxonomy' => 'category_novosti',
                                 'field'    => 'term_id',
                                 'terms'    => $current_term->term_id,
                             ),
