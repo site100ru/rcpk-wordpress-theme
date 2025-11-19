@@ -135,8 +135,8 @@ add_action('after_setup_theme', 'mytheme_setup');
 // Регистрируем кастомный тип записи и таксономию
 function mytheme_register_post_types()
 {
-    // Тип записи "Советы"
-    register_post_type('sovety', array(
+    // Тип записи "Новости"
+    register_post_type('novosti', array(
         'labels' => array(
             'name'               => 'Новости',
             'singular_name'      => 'Новость',
@@ -152,18 +152,18 @@ function mytheme_register_post_types()
         ),
         'public'              => true,
         'has_archive'         => 'o-kurse/archive-kurse',
-        'rewrite'             => false, // Отключаем автоматический rewrite
+        'rewrite'             => false,
         'menu_icon'           => 'dashicons-media-document',
         'supports'            => array('title', 'editor', 'thumbnail', 'excerpt'),
         'show_in_rest'        => true,
         'show_in_nav_menus'   => true,
-        'taxonomies'          => array('category_sovety'),
+        'taxonomies'          => array('category_novosti'),
     ));
 
     // Таксономия (категории) для советов
-    register_taxonomy('category_sovety', 'sovety', array(
+    register_taxonomy('category_novosti', 'novosti', array(
         'labels' => array(
-            'name'              => 'Категории советов',
+            'name'              => 'Категории новостей',
             'singular_name'     => 'Категория',
             'search_items'      => 'Найти категорию',
             'all_items'         => 'Все категории',
