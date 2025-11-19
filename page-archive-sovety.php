@@ -1,5 +1,5 @@
 <?php
-/* Template Name: Архив статей и советов */
+/* Template Name: Новости */
 get_header();
 ?>
 
