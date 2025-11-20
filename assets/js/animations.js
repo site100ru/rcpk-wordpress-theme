@@ -38,6 +38,27 @@ $(document).ready(function () {
         });
     }
 
+     // Настройки анимации для link-universal--u-ill1l2qst
+    if ($('.link-universal--u-ill1l2qst').length > 0) {
+        $('.link-universal--u-ill1l2qst').each(function (index) {
+            $(this).addClass('wow');
+            $(this).attr({
+                'data-wow-duration': '1s',
+                'data-wow-delay': (index * 0.15) + 's',
+                'data-wow-offset': '100',
+                'data-wow-iteration': '1'
+            });
+
+            $(this).css({
+                'animation-name': 'growFromBottomRight',
+                'animation-duration': '1s',
+                'animation-delay': (index * 0.15) + 's',
+                'animation-fill-mode': 'both',
+                'overflow': 'hidden'
+            });
+        });
+    }
+
     // Настройки анимации для blocklist__item__outer--u-iykm8re6p
     if ($('.blocklist__item__outer--u-iykm8re6p').length > 0) {
         $('.blocklist__item__outer--u-iykm8re6p').each(function (index) {

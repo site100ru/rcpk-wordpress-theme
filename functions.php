@@ -761,23 +761,24 @@ function mytheme_customize_register($wp_customize)
         'type'        => 'text',
     ));
 
-    // СЕКЦИЯ: Изображение документа
-    $wp_customize->add_section('document_image_section', array(
-        'title'    => 'Изображение документа',
+    // СЕКЦИЯ: Изображения документов
+    $wp_customize->add_section('document_images_section', array(
+        'title'    => 'Изображения документов',
         'priority' => 200
     ));
 
-    // Настройка для изображения документа
-    $wp_customize->add_setting('document_image', array(
+    // Настройка для хранения ID изображений (через запятую)
+    $wp_customize->add_setting('document_image_ids', array(
         'default'           => '',
-        'sanitize_callback' => 'esc_url_raw',
+        'sanitize_callback' => 'sanitize_text_field',
     ));
 
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'document_image', array(
-        'label'    => 'Загрузить изображение документа',
-        'section'  => 'document_image_section',
-        'settings' => 'document_image',
-    )));
+    $wp_customize->add_control('document_image_ids', array(
+        'label'       => 'ID изображений документов (через запятую)',
+        'description' => 'Например: 123,456,789. Чтобы узнать ID - откройте изображение в Медиабиблиотеке и посмотрите в адресной строке (post=123)',
+        'section'     => 'document_images_section',
+        'type'        => 'text',
+    ));
 }
 add_action('customize_register', 'mytheme_customize_register');
 

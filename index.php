@@ -538,16 +538,16 @@
                             <div class="text text--u-iz4awmpyc">
                                 <span class="text-block-wrap-div">Учебные программы, одобренные высшими учебными заведениями. Индивидуальное сопровождение.</span>
                             </div>
-                            <div role="button" class="link-universal link-universal--u-ill1l2qst">
-                                <div class="text text--u-ila2o4uv2">
-                                    <span class="text-block-wrap-div">Оставить заявку</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="blocklist blocklist--u-inuy58211">
                         <div class="blocklist__items_wrapper blocklist__items_wrapper--u-ij6525we4">
                             <div class="blocklist__list blocklist__list--u-iov7ds05u">
+                                <div role="button" class="link-universal link-universal--u-ill1l2qst">
+                                    <div class="text text--u-ila2o4uv2">
+                                        <span class="text-block-wrap-div">Оставить заявку</span>
+                                    </div>
+                                </div>
                                 <div class="blocklist__item__outer blocklist__item__outer--u-iykm8re6p">
                                     <div class="blocklist__item blocklist__item--u-ij0qzo498">
                                         <div class="blocklist__item_title blocklist__item_title--u-i4oijkpqf">
@@ -890,17 +890,49 @@
                                 </div>
                             </div>
                             <div class="div div--u-io3i9brqn">
-                                <div class="imageFit imageFit--u-ifg0pj0h2 photo-swipe-image photo-swipe-image-nc cursor-pointer">
-                                    <?php
-                                    $document_image = get_theme_mod('document_image');
-                                    $image_src = $document_image ? esc_url($document_image) : get_template_directory_uri() . '/assets/img/doc.webp';
-                                    ?>
-                                    <img src="<?php echo $image_src; ?>" alt="Документ" title="" class="imageFit__img imageFit__img--u-i7zcl3b4v" />
+                                <?php
+                                // Получаем ID изображений из customizer
+                                $image_ids = get_theme_mod('document_image_ids', '');
+                                $document_images = array();
+                                
+                                // ОТЛАДКА
+                                echo '<!-- DEBUG IDs: ' . $image_ids . ' -->';
+                                
+                                if (!empty($image_ids)) {
+                                    $ids = array_map('trim', explode(',', $image_ids));
+                                    foreach ($ids as $id) {
+                                        if (is_numeric($id)) {
+                                            $image_url = wp_get_attachment_url($id);
+                                            if ($image_url) {
+                                                $document_images[] = $image_url;
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                if (empty($document_images)) {
+                                    $document_images = array(get_template_directory_uri() . '/assets/img/doc.webp');
+                                }
+                                ?>
+                                
+                                <div class="imageFit imageFit--u-ifg0pj0h2 cursor-pointer" data-gallery-trigger="documents">
+                                    <img src="<?php echo esc_url($document_images[0]); ?>" alt="Документ" class="imageFit__img imageFit__img--u-i7zcl3b4v" />
                                     <div class="imageFit__overlay imageFit__overlay--u-iujrl9p0c"></div>
                                     <div class="imageFit__zoom imageFit__zoom--u-iy605y3ys">
                                         <span class="svg_image svg_image--u-igs3iar67"> </span>
                                     </div>
+                                    <?php if (count($document_images) > 1): ?>
+                                        <div class="image-counter"><?php echo count($document_images); ?> фото</div>
+                                    <?php endif; ?>
                                 </div>
+                                
+                                <!-- СКРЫТАЯ ГАЛЕРЕЯ -->
+                                <div style="display: none;">
+                                    <?php foreach ($document_images as $index => $image_url): ?>
+                                        <a href="<?php echo esc_url($image_url); ?>" data-gallery="documents" data-index="<?php echo $index; ?>"></a>
+                                    <?php endforeach; ?>
+                                </div>
+                                
                                 <a href="/dokuments" class="link-universal link-universal--u-ihqs5fnlz">
                                     <div class="blocklist__item_title blocklist__item_title--u-i0gvxd5ba">
                                         <span class="text-block-wrap-div">Документ по окончании обучения</span>

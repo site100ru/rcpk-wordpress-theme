@@ -455,7 +455,8 @@ table.table2 th {
 .blocklist__list--u-i1b91l0ox,
 .blocklist__list--u-iz38qlhhj,
 .section--u-i1mm52hsj,
-.div--u-ie6zm4gfm {
+.div--u-ie6zm4gfm,
+.link-universal--u-ill1l2qst {
 	visibility: hidden;
 }
 
@@ -475,7 +476,8 @@ table.table2 th {
 .blocklist__list--u-i1b91l0ox.wow,
 .blocklist__list--u-iz38qlhhj.wow,
 .section--u-i1mm52hsj.wow,
-.div--u-ie6zm4gfm.wow {
+.div--u-ie6zm4gfm.wow,
+.link-universal--u-ill1l2qst.wow {
 	visibility: visible;
 }
 
@@ -491,6 +493,20 @@ table.table2 th {
 		opacity: 1;
 	}
 }
+
+@keyframes growFromBottomRight {
+    0% {
+        transform: scale(0);
+        transform-origin: bottom right;
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        transform-origin: bottom right;
+        opacity: 1;
+    }
+}
+
 
 @keyframes expandFromCenter {
 	0% {

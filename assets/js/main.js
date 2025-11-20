@@ -211,40 +211,76 @@ $(document).ready(function () {
 });
 
 $(document).ready(function() {
-    // Клик на изображение для открытия модального окна
-    $('.photo-swipe-image, .photo-swipe-image-nc, .lpc-image-type-1').on('click', function(e) {
+    var currentIndex = 0;
+    var galleryImages = [];
+    
+    // Клик на превью или любое изображение с галереей
+    $(document).on('click', '[data-gallery-trigger], [data-gallery]', function(e) {
         e.preventDefault();
         
-        var imgSrc;
+        var galleryName = $(this).data('gallery-trigger') || $(this).data('gallery');
+        var startIndex = parseInt($(this).data('index')) || 0;
         
-        // Проверяем, есть ли href у ссылки
-        if ($(this).is('a') && $(this).attr('href')) {
-            imgSrc = $(this).attr('href');
-        } else {
-            imgSrc = $(this).find('img').attr('src');
-        }
-        
-        // Меняем src изображения в модальном окне
-        $('#pswp-mosaic .pswp__img').attr('src', imgSrc);
-        
-        // Показываем модальное окно
-        $('#pswp-mosaic').css({
-            'display': 'block',
-            'opacity': '0'
+        // Собираем изображения
+        galleryImages = [];
+        $('[data-gallery="' + galleryName + '"]').each(function() {
+            var src = $(this).attr('href');
+            if (src) galleryImages.push(src);
         });
         
-        // Анимация появления
+        if (galleryImages.length === 0) return;
+        
+        currentIndex = startIndex;
+        showModal();
+    });
+    
+    // Показать модалку
+    function showModal() {
+        updateImage();
+        $('#pswp-mosaic').css({'display': 'block', 'opacity': '0'});
         setTimeout(function() {
             $('#pswp-mosaic').css('opacity', '1');
             $('#pswp-mosaic .pswp__bg').css('opacity', '0.7');
-            $('#pswp-mosaic .pswp__img').css('opacity', '1');
         }, 50);
-        
-        // Блокируем скролл body
         $('body').css('overflow', 'hidden');
+    }
+    
+    // Обновить изображение
+    function updateImage() {
+        $('#pswp-mosaic .pswp__img').attr('src', galleryImages[currentIndex]);
+        
+        // Счетчик
+        var $counter = $('#pswp-mosaic .pswp__counter');
+        if ($counter.length === 0) {
+            $counter = $('<div class="pswp__counter"></div>');
+            $('#pswp-mosaic').append($counter);
+        }
+        $counter.text((currentIndex + 1) + ' / ' + galleryImages.length);
+        
+        // Стрелки
+        if (galleryImages.length > 1) {
+            if ($('#pswp-mosaic .pswp__button--arrow--left').length === 0) {
+                $('#pswp-mosaic').append('<button class="pswp__button--arrow--left">‹</button>');
+                $('#pswp-mosaic').append('<button class="pswp__button--arrow--right">›</button>');
+            }
+            $('.pswp__button--arrow--left, .pswp__button--arrow--right').show();
+        }
+    }
+    
+    // Навигация
+    $(document).on('click', '.pswp__button--arrow--left', function(e) {
+        e.stopPropagation();
+        currentIndex = currentIndex > 0 ? currentIndex - 1 : galleryImages.length - 1;
+        updateImage();
     });
     
-    // Закрытие модального окна
+    $(document).on('click', '.pswp__button--arrow--right', function(e) {
+        e.stopPropagation();
+        currentIndex = currentIndex < galleryImages.length - 1 ? currentIndex + 1 : 0;
+        updateImage();
+    });
+    
+    // Закрытие
     $(document).on('click', '.pswp__button--close, .pswp__bg', function() {
         $('#pswp-mosaic').css('opacity', '0');
         setTimeout(function() {
@@ -253,14 +289,11 @@ $(document).ready(function() {
         }, 300);
     });
     
-    // Закрытие по ESC
+    // Клавиатура
     $(document).on('keydown', function(e) {
-        if (e.key === 'Escape' && $('#pswp-mosaic').is(':visible')) {
-            $('#pswp-mosaic').css('opacity', '0');
-            setTimeout(function() {
-                $('#pswp-mosaic').css('display', 'none');
-                $('body').css('overflow', '');
-            }, 300);
-        }
+        if (!$('#pswp-mosaic').is(':visible')) return;
+        if (e.key === 'Escape') $('.pswp__button--close').click();
+        if (e.key === 'ArrowLeft') $('.pswp__button--arrow--left').click();
+        if (e.key === 'ArrowRight') $('.pswp__button--arrow--right').click();
     });
 });
