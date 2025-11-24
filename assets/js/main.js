@@ -151,55 +151,55 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    // Инициализация
-    $('.mosaic-popup__inner-bg--u-iim3w5fa1').css({
-        'transition': 'opacity 0.3s ease',
-        'opacity': '0',
-        'display': 'none'
-    });
+// $(document).ready(function () {
+//     // Инициализация
+//     $('.mosaic-popup__inner-bg--u-iim3w5fa1').css({
+//         'transition': 'opacity 0.3s ease',
+//         'opacity': '0',
+//         'display': 'none'
+//     });
 
-    // Открытие окон - определяем по тексту кнопки
-    $('.link-universal--u-ikofmis2h, [role="button"]').on('click', function () {
-        var buttonText = $(this).text().trim();
-        var popupId;
+//     // Открытие окон - определяем по тексту кнопки
+//     $('.link-universal--u-ikofmis2h, [role="button"]').on('click', function () {
+//         var buttonText = $(this).text().trim();
+//         var popupId;
         
-        // Определяем какое окно открыть по тексту кнопки
-        if (buttonText.includes('Записаться') || buttonText.includes('Записатьс')) {
-            popupId = 'popup-callback';
-        } else if (buttonText.includes('Оставить заявку')) {
-            popupId = 'popup-course';
-        } else {
-            popupId = 'popup-callback'; // по умолчанию
-        }
+//         // Определяем какое окно открыть по тексту кнопки
+//         if (buttonText.includes('Записаться') || buttonText.includes('Записатьс')) {
+//             popupId = 'popup-callback';
+//         } else if (buttonText.includes('Оставить заявку')) {
+//             popupId = 'popup-course';
+//         } else {
+//             popupId = 'popup-callback'; // по умолчанию
+//         }
         
-        var $popup = $('#' + popupId + ' .mosaic-popup__inner-bg--u-iim3w5fa1');
-        $popup.css('display', 'flex');
-        setTimeout(function () {
-            $popup.css('opacity', '1');
-        }, 10);
-    });
+//         var $popup = $('#' + popupId + ' .mosaic-popup__inner-bg--u-iim3w5fa1');
+//         $popup.css('display', 'flex');
+//         setTimeout(function () {
+//             $popup.css('opacity', '1');
+//         }, 10);
+//     });
 
-    // Закрытие по крестику
-    $('.mosaic-popup__close--u-iqxwzmwlp').on('click', function () {
-        var $popup = $(this).closest('.mosaic-popup__inner-bg--u-iim3w5fa1');
-        $popup.css('opacity', '0');
-        setTimeout(function () {
-            $popup.css('display', 'none');
-        }, 300);
-    });
+//     // Закрытие по крестику
+//     $('.mosaic-popup__close--u-iqxwzmwlp').on('click', function () {
+//         var $popup = $(this).closest('.mosaic-popup__inner-bg--u-iim3w5fa1');
+//         $popup.css('opacity', '0');
+//         setTimeout(function () {
+//             $popup.css('display', 'none');
+//         }, 300);
+//     });
 
-    // Закрытие по оверлею
-    $('.mosaic-popup__inner-bg--u-iim3w5fa1').on('click', function (e) {
-        if ($(e.target).hasClass('mosaic-popup__inner-bg--u-iim3w5fa1')) {
-            var $popup = $(this);
-            $popup.css('opacity', '0');
-            setTimeout(function () {
-                $popup.css('display', 'none');
-            }, 300);
-        }
-    });
-});
+//     // Закрытие по оверлею
+//     $('.mosaic-popup__inner-bg--u-iim3w5fa1').on('click', function (e) {
+//         if ($(e.target).hasClass('mosaic-popup__inner-bg--u-iim3w5fa1')) {
+//             var $popup = $(this);
+//             $popup.css('opacity', '0');
+//             setTimeout(function () {
+//                 $popup.css('display', 'none');
+//             }, 300);
+//         }
+//     });
+// });
 
 $(document).ready(function () {
     // Кнопка "Наверх" - плавная прокрутка

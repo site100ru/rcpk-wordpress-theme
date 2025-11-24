@@ -240,6 +240,90 @@ function mytheme_register_post_types()
 }
 add_action('init', 'mytheme_register_post_types');
 
+// Добавление мета-бокса для внешней ссылки
+add_action('add_meta_boxes', 'catalog_add_external_link_metabox');
+function catalog_add_external_link_metabox() {
+    add_meta_box(
+        'catalog_external_link',
+        'Внешняя ссылка',
+        'catalog_external_link_callback',
+        'catalog',
+        'side',
+        'default'
+    );
+}
+
+// Callback для вывода поля
+function catalog_external_link_callback($post) {
+    wp_nonce_field('catalog_save_external_link', 'catalog_external_link_nonce');
+    $value = get_post_meta($post->ID, 'external_link', true);
+    ?>
+    <p>
+        <label for="catalog_external_link">URL:</label><br>
+        <input type="url" 
+               id="catalog_external_link" 
+               name="catalog_external_link" 
+               value="<?php echo esc_attr($value); ?>" 
+               style="width: 100%;" 
+               placeholder="https://example.com">
+    </p>
+    <p class="description">
+        Если указана, кнопка "Подробнее" будет вести на этот адрес.<br>
+        Если не указана - на страницу статьи.
+    </p>
+    <?php
+}
+
+// Сохранение мета-поля
+add_action('save_post_catalog', 'catalog_save_external_link');
+function catalog_save_external_link($post_id) {
+    // Проверка nonce
+    if (!isset($_POST['catalog_external_link_nonce']) || 
+        !wp_verify_nonce($_POST['catalog_external_link_nonce'], 'catalog_save_external_link')) {
+        return;
+    }
+
+    // Проверка автосохранения
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // Проверка прав
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // Сохранение или удаление значения
+    if (isset($_POST['catalog_external_link'])) {
+        $external_link = esc_url_raw($_POST['catalog_external_link']);
+        if (!empty($external_link)) {
+            update_post_meta($post_id, 'external_link', $external_link);
+        } else {
+            delete_post_meta($post_id, 'external_link');
+        }
+    }
+}
+
+// Фильтр для сохранения HTML в отрывке (excerpt)
+remove_filter('get_the_excerpt', 'wp_trim_excerpt');
+add_filter('get_the_excerpt', 'catalog_custom_excerpt', 10, 1);
+function catalog_custom_excerpt($text) {
+    global $post;
+    
+    if ($post->post_type === 'catalog' && has_excerpt()) {
+        // Возвращаем отрывок с сохранением HTML
+        $excerpt = $post->post_excerpt;
+        // Разрешаем определенные HTML-теги
+        $allowed_tags = '<a><br><strong><em><u><p><span><b><i>';
+        $excerpt = strip_tags($excerpt, $allowed_tags);
+        // Конвертируем переносы строк в <br>
+        $excerpt = nl2br($excerpt);
+        return $excerpt;
+    }
+    
+    return wp_trim_excerpt($text);
+}
+
 // Добавляем кастомное правило rewrite для постов с категорией
 function mytheme_add_rewrite_rules()
 {
