@@ -417,8 +417,24 @@
                                 </div>
                             </div>
 
+
                             <!-- Кнопка записи -->
                             <div class="div div--u-igqeyih6g">
+                                <div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+                                    <!-- Телефон -->
+                                    <div class="div div--u-iz7p7tcug">
+                                        <div class="list list--u-i99wkb6ie">
+                                                <div class="list__item list__item--u-iqvnaqrvp">
+                                                    <a target="_self" href="mailto:rcpk62@mail.ru" class="link-universal link-universal--u-i2gx7d7z2">
+                                                        <div class="text text--u-ivur73rjr">
+                                                            <span class="text-block-wrap-div">rcpk62@mail.ru</span>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div role="button" class="link-universal link-universal--u-ikofmis2h">
                                     <div class="text text--u-iwuj0ajod">
                                         <span class="text-block-wrap-div">Записаться на курс</span>

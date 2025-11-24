@@ -10463,3 +10463,9 @@
     font-size: 12px;
     z-index: 10;
 }
+
+@media (max-width: 992px) {
+    .div--u-igqeyih6g {
+        flex-direction: column;
+    }
+}
