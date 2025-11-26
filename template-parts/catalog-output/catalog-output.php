@@ -51,7 +51,6 @@ $catalog_query = new WP_Query($args);
                                                 class="imageFit__img imageFit__img--u-iuyvbsvyh" />
                                             <div class="imageFit__overlay imageFit__overlay--u-ieyv553u6">
                                                 <a href="<?php echo $final_link; ?>" 
-                                                role="button" 
                                                 class="link-universal link-universal--u-i3mwgrwp8"
                                                 <?php echo !empty($external_link) ? 'target="_blank" rel="noopener noreferrer"' : ''; ?>>
                                                     <div class="text text--u-ir2e76r7j">

@@ -131,7 +131,7 @@
             <div class="div div--u-ih3h5tazc">
                 <div class="div div--u-ibhcgycgd">
                     <div class="blocklist__item_title blocklist__item_title--u-ifk3wyu8n">
-                        <span class="text-block-wrap-div">Получите новые знания и официальный диплом. Курсы для бухгалтеров, педагогов, медиков, ИТ-специалистов</span>
+                        <span class="text-block-wrap-div">Получите новые знания, запишитесь на курс!</span>
                     </div>
                 </div>
                 <div class="div div--u-ijft4pmxz">
