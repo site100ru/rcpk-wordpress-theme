@@ -396,7 +396,7 @@
                                                 if ($query->have_posts()) {
                                                     while ($query->have_posts()) {
                                                         $query->the_post();
-                                                        echo '<option value="' . esc_attr(get_the_ID()) . '">' . esc_html(get_the_title()) . '</option>';
+                                                            echo '<option value="' . esc_attr(get_the_title()) . '">' . esc_html(get_the_title()) . '</option>';
                                                     }
                                                 }
                                                 wp_reset_postdata();
@@ -858,7 +858,7 @@
                                                 if ($query->have_posts()) {
                                                     while ($query->have_posts()) {
                                                         $query->the_post();
-                                                        echo '<option value="' . esc_attr(get_the_ID()) . '" class="mosaic-form__select-item mosaic-form__select-item--u-ib0fudd2r">' . esc_html(get_the_title()) . '</option>';
+                                                        echo '<option value="' . esc_attr(get_the_title()) . '" class="mosaic-form__select-item mosaic-form__select-item--u-ib0fudd2r">' . esc_html(get_the_title()) . '</option>';
                                                     }
                                                 }
                                                 wp_reset_postdata();
