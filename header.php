@@ -149,6 +149,144 @@
                 </div>
             </div>
 
+            <!-- POPUP: Написать нам -->
+            <div class="mosaic-popup mosaic-popup--u-i6fnbs3ah" id="popup-username">
+                <div class="mosaic-popup__inner-bg mosaic-popup__inner-bg--u-iim3w5fa1">
+                    <div class="mosaic-popup__inner-data mosaic-popup__inner-data--u-ibozsrwvn">
+                        <div class="mosaic-popup__close mosaic-popup__close--u-iqxwzmwlp">
+                            <span class="svg_image svg_image--u-im0u0viwr">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16.41" height="16.406" viewBox="0 0 16.41 16.406">
+                                    <path
+                                        d="M9.86 8.058l6.16 6.161a1.286 1.286 0 0 1-1.82 1.817L8.04 9.875l-5.86 5.857A1.252 1.252 0 0 1 .41 13.96l5.86-5.857-5.9-5.9A1.282 1.282 0 1 1 2.18.386l5.9 5.9L13.9.471a1.252 1.252 0 1 1 1.77 1.772z"
+                                        fill-rule="evenodd"
+                                        class="path-ij1ve12k6"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="mosaic-form mosaic-form--u-iyjjmcepo">
+                            <form action="<?php echo get_template_directory_uri(); ?>/assets/mails/callback-username.php" class="mosaic-form__form mosaic-form__form--u-iwsx1397a" method="POST">
+                                <div class="mosaic-form__title mosaic-form__title--u-iacq4vc9z">
+                                    <span class="text-block-wrap-div">Написать нам</span>
+                                </div>
+                                <div class="div div--u-i1om4z0p8">
+                                    <div class="mosaic-form__field mosaic-form__field--u-i3bdh0fvm">
+                                        <div class="mosaic-form__error mosaic-form__error--u-in1yotpdk is-removed">
+                                            <span class="text-block-wrap-div">это поле обязательно для заполнения</span>
+                                        </div>
+                                        <div class="mosaic-form__header mosaic-form__header--u-i978tvlqr">
+                                            <span class="mosaic-form__name mosaic-form__name--u-ibutptk30">
+                                                <span class="text-block-wrap-div">Строка ввода:</span>
+                                            </span>
+                                            <span class="mosaic-form__required mosaic-form__required--u-itjutd3kf is-removed">
+                                                <span class="text-block-wrap-div">* </span>
+                                            </span>
+                                        </div>
+                                        <div class="mosaic-form__body mosaic-form__body--u-i8vj08i1m">
+                                            <div class="mosaic-form__icon mosaic-form__icon--u-ijow40kc0">
+                                                <span class="svg_image svg_image--u-i866kyae0"></span>
+                                            </div>
+                                            <input type="text" placeholder="Ваше имя" name="username" class="mosaic-form__text mosaic-form__text--u-i3kvj8jn2" />
+                                        </div>
+                                        <div class="mosaic-form__note mosaic-form__note--u-izhs2gv50 is-removed"></div>
+                                    </div>
+                                    <div class="mosaic-form__field mosaic-form__field--u-i38c5r4tj">
+                                        <div class="mosaic-form__error mosaic-form__error--u-i0gsidc3q is-removed">
+                                            <span class="text-block-wrap-div">это поле обязательно для заполнения</span>
+                                        </div>
+                                        <div class="mosaic-form__header mosaic-form__header--u-ignt4mbed">
+                                            <span class="mosaic-form__name mosaic-form__name--u-imir0ihrj">
+                                                <span class="text-block-wrap-div">Телефон:</span>
+                                            </span>
+                                            <span class="mosaic-form__required mosaic-form__required--u-i4bpgonih">
+                                                <span class="text-block-wrap-div">* </span>
+                                            </span>
+                                        </div>
+                                        <div class="mosaic-form__body mosaic-form__body--u-idpfeo902">
+                                            <div class="mosaic-form__icon mosaic-form__icon--u-ionl1f5vp">
+                                                <span class="svg_image svg_image--u-imgr86jq5"></span>
+                                            </div>
+                                            <input type="tel" name="tel" placeholder="Телефон *" class="mosaic-form__text mosaic-form__text--u-it5nzmjjk" />
+                                        </div>
+                                        <div class="mosaic-form__note mosaic-form__note--u-itxjzugwf is-removed"></div>
+                                    </div>
+                                    <div class="mosaic-form__field mosaic-form__field--u-i37kfqwac">
+                                        <div class="mosaic-form__error mosaic-form__error--u-ihxznargw is-removed">
+                                            <span class="text-block-wrap-div">это поле обязательно для заполнения</span>
+                                        </div>
+                                        <div class="mosaic-form__header mosaic-form__header--u-imqu3rmw8">
+                                            <span class="mosaic-form__name mosaic-form__name--u-io7w7mawl">
+                                                <span class="text-block-wrap-div">E-mail:</span>
+                                            </span>
+                                            <span class="mosaic-form__required mosaic-form__required--u-iipk53m0x is-removed">
+                                                <span class="text-block-wrap-div">* </span>
+                                            </span>
+                                        </div>
+                                        <div class="mosaic-form__body mosaic-form__body--u-ijqm7e5ls">
+                                            <div class="mosaic-form__icon mosaic-form__icon--u-ifu41tibu">
+                                                <span class="svg_image svg_image--u-i9lnmh20e"></span>
+                                            </div>
+                                            <input type="email" name="email" placeholder="E-mail" class="mosaic-form__text mosaic-form__text--u-i4zr6bis1" />
+                                        </div>
+                                        <div class="mosaic-form__note mosaic-form__note--u-ilv3eglhg is-removed"></div>
+                                    </div>
+                                    <div class="mosaic-form__field mosaic-form__field--u-ijupsfj38">
+                                        <div class="mosaic-form__error mosaic-form__error--u-ik0ykfi0y is-removed">
+                                            <span class="text-block-wrap-div">это поле обязательно для заполнения</span>
+                                        </div>
+                                        <div class="mosaic-form__header mosaic-form__header--u-i38hynusa">
+                                            <span class="mosaic-form__name mosaic-form__name--u-iudtiaqoa">
+                                                <span class="text-block-wrap-div">Область ввода:</span>
+                                            </span>
+                                            <span class="mosaic-form__required mosaic-form__required--u-iss44b7p9 is-removed">
+                                                <span class="text-block-wrap-div">* </span>
+                                            </span>
+                                        </div>
+                                        <div class="mosaic-form__body mosaic-form__body--u-i41aqhogt">
+                                            <div class="mosaic-form__icon mosaic-form__icon--u-igapui408">
+                                                <span class="svg_image svg_image--u-icmc4sm76"></span>
+                                            </div>
+                                            <textarea name="question" placeholder="Ваш вопрос" class="mosaic-form__textarea mosaic-form__textarea--u-ia9y9rf9l"></textarea>
+                                        </div>
+                                        <div class="mosaic-form__note mosaic-form__note--u-ivzaandjw is-removed"></div>
+                                    </div>
+                                </div>
+                                <div class="mosaic-form__field mosaic-form__field--u-ixu80mu3q">
+                                    <div class="mosaic-form__error mosaic-form__error--u-ih65iwl2d is-removed">
+                                        <span class="text-block-wrap-div">это поле обязательно для заполнения</span>
+                                    </div>
+                                    <div class="mosaic-form__header mosaic-form__header--u-i1n5rh36d">
+                                        <span class="mosaic-form__name mosaic-form__name--u-imeq4ck1o">
+                                            <span class="text-block-wrap-div">Галочка</span>
+                                        </span>
+                                        <span class="mosaic-form__required mosaic-form__required--u-i4jxv8c62 is-removed">
+                                            <span class="text-block-wrap-div">* </span>
+                                        </span>
+                                    </div>
+                                    <label class="mosaic-form__label mosaic-form__label--u-igkj6ded9">
+                                        <input type="checkbox" name="agreement" value="Ознакомлен с пользовательским соглашением" class="mosaic-form__checkbox mosaic-form__checkbox--u-ipkpe12aq" />
+                                        <span class="mosaic-form__checkbox-icon mosaic-form__checkbox-icon--u-i4ba4orh4"></span>
+                                        <span class="mosaic-form__value mosaic-form__value--u-iuv4z9pvs">
+                                            <span class="text-block-wrap-div">Ознакомлен с пользовательским соглашением</span>
+                                        </span>
+                                    </label>
+                                    <div class="mosaic-form__note mosaic-form__note--u-i9wu11dpk is-removed"></div>
+                                </div>
+                                <button type="submit" class="mosaic-form__button mosaic-form__button--u-ihqwpp16f">
+                                    <span class="button__text button__text--u-ixtzflqi8">
+                                        <span class="text-block-wrap-div">Отправить</span>
+                                    </span>
+                                </button>
+                            </form>
+                            <div class="mosaic-form__success mosaic-form__success--u-ilw9exebi is-removed">
+                                <div class="mosaic-form__success__text mosaic-form__success__text--u-iimvls0q9">
+                                    <span class="text-block-wrap-div">Спасибо! Форма отправлена</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- POPUP: Запись на курс -->
             <div class="mosaic-popup mosaic-popup--u-i6fnbs3ah" id="popup-course">
                 <div class="mosaic-popup__inner-bg mosaic-popup__inner-bg--u-iim3w5fa1">

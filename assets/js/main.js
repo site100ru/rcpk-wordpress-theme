@@ -169,6 +169,8 @@ $(document).ready(function () {
             popupId = 'popup-callback';
         } else if (buttonText.includes('Оставить заявку')) {
             popupId = 'popup-course';
+        } else if (buttonText.includes('Написать нам')) {
+            popupId = 'popup-username';
         } else {
             popupId = 'popup-callback'; // по умолчанию
         }

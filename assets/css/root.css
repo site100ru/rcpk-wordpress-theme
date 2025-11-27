@@ -495,18 +495,17 @@ table.table2 th {
 }
 
 @keyframes growFromBottomRight {
-    0% {
-        transform: scale(0);
-        transform-origin: bottom right;
-        opacity: 0;
-    }
-    100% {
-        transform: scale(1);
-        transform-origin: bottom right;
-        opacity: 1;
-    }
+	0% {
+		transform: scale(0);
+		transform-origin: bottom right;
+		opacity: 0;
+	}
+	100% {
+		transform: scale(1);
+		transform-origin: bottom right;
+		opacity: 1;
+	}
 }
-
 
 @keyframes expandFromCenter {
 	0% {
@@ -730,16 +729,149 @@ p:first-child {
 }
 
 .root.root--u-ibcywfqup {
-    display: flex; 
-    flex-direction: column;
-    justify-content: space-between;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
-.root--u-ibcywfqup::before, 
+.root--u-ibcywfqup::before,
 .root--u-ibcywfqup::after {
-    content: none !important;
+	content: none !important;
 }
 
 .section.section--u-i1mm52hsj {
-    margin-bottom: auto;
+	margin-bottom: auto;
+}
+
+/*** Всплывающая форма Политики конфиденциальности ***/
+.popup-form {
+	position: fixed;
+	bottom: -500px; /* Форма скрыта за пределами экрана */
+	left: 0;
+	width: 100%;
+	background: rgba(255, 255, 255, 0.8);
+	backdrop-filter: blur(8px); /* Размытие фона */
+	-webkit-backdrop-filter: blur(8px); /* Для Safari */
+	box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.2);
+	padding: 10px 80px;
+	box-sizing: border-box;
+	transition: bottom 0.5s ease-out;
+	z-index: 1000;
+	max-width: 100%;
+}
+
+.popup-form a {
+    --color-i74dmyfew: 216, 148, 39;
+    color: rgba(var(--color-i74dmyfew), 1);
+}
+
+@media (max-width: 991px) {
+	.popup-form {
+		padding: 20px;
+	}
+}
+
+.popup-form p,
+.form-check p small {
+	font-size: 16px;
+}
+
+@media (max-width: 768px) {
+	.popup-form p,
+	.form-check p small {
+		font-size: 14px;
+	}
+}
+
+.popup-form.active {
+	bottom: 0; /* Форма появляется снизу */
+}
+
+.container {
+	max-width: 1750px;
+}
+
+.action-btn {
+	cursor: pointer;
+	vertical-align: top;
+	padding-top: 20px;
+	padding-right: 25px;
+	padding-bottom: 20px;
+	padding-left: 25px;
+	background-color: rgba(var(--color-iaxhotjhj), 1);
+	color: rgba(var(--color-i0ge0oqvo), 1);
+	position: relative;
+	text-decoration-line: none;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	font-weight: 700;
+	text-transform: uppercase;
+	border-top-left-radius: 50px;
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
+	border-bottom-left-radius: 50px;
+	flex-shrink: 0;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	line-height: 1vw;
+    margin-top: 16px;
+}
+
+.container {
+	--bs-gutter-x: 1.5rem;
+	--bs-gutter-y: 0;
+	width: 100%;
+	padding-right: calc(var(--bs-gutter-x) * 0.5);
+	padding-left: calc(var(--bs-gutter-x) * 0.5);
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.p-0 {
+	padding: 0 !important;
+}
+
+.align-items-center {
+	align-items: center !important;
+}
+
+.justify-content-center {
+	justify-content: center !important;
+}
+
+.row {
+	--bs-gutter-x: 1.5rem;
+	--bs-gutter-y: 0;
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: calc(-1 * var(--bs-gutter-y));
+	margin-right: calc(-0.5 * var(--bs-gutter-x));
+	margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+
+@media (min-width: 768px) {
+	.col-md-9 {
+		flex: 0 0 auto;
+		width: 75%;
+	}
+}
+
+@media (min-width: 768px) {
+	.col-md-3 {
+		flex: 0 0 auto;
+		width: 25%;
+	}
+}
+
+@media (min-width: 768px) {
+	.text-md-center {
+		text-align: center !important;
+	}
 }
