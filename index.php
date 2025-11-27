@@ -882,6 +882,9 @@
                                             <div class="mosaic-form__note mosaic-form__note--u-iwmmve6vi is-removed"></div>
                                         </div>
                                     </div>
+                                     
+                                            
+
                                     <div class="mosaic-form__field mosaic-form__field--u-ig753muzh">
                                         <!--noindex-->
                                         <div class="mosaic-form__error mosaic-form__error--u-i98nb76wo is-removed">
@@ -891,11 +894,16 @@
                                         <div class="mosaic-form__header mosaic-form__header--u-ikkxskmkj">
                                             <span class="mosaic-form__name mosaic-form__name--u-igp98fk7m"><span class="text-block-wrap-div">Галочка</span></span><span class="mosaic-form__required mosaic-form__required--u-i1e97sp2o is-removed"><span class="text-block-wrap-div">* </span></span>
                                         </div>
-                                        <label class="mosaic-form__label mosaic-form__label--u-iffag8czd"><input
+                                        <label class="mosaic-form__label mosaic-form__label--u-iffag8czd">
+                                            <input
                                                 type="checkbox"
                                                 name="agreement"
                                                 value="Ознакомлен с пользовательским соглашением"
-                                                class="mosaic-form__checkbox mosaic-form__checkbox--u-ipllxarsi" /><span class="mosaic-form__checkbox-icon mosaic-form__checkbox-icon--u-imvd5rcjk"></span><span class="mosaic-form__value mosaic-form__value--u-iduim6tjb"><span class="text-block-wrap-div">Ознакомлен с пользовательским соглашением</span></span></label>
+                                                class="mosaic-form__checkbox mosaic-form__checkbox--u-ipllxarsi" required checked />
+                                                <span class="mosaic-form__checkbox-icon mosaic-form__checkbox-icon--u-imvd5rcjk"></span>
+                                                <span class="mosaic-form__value mosaic-form__value--u-iduim6tjb">
+                                                    <span class="text-block-wrap-div">Ознакомлен с <a href="<?= get_template_directory_uri(); ?>/docs/Privacy-Policy.pdf" target="blank" >Политике конфиденциальности.</a></span>
+                                                </span></label>
                                         <div class="mosaic-form__note mosaic-form__note--u-ith3092u9 is-removed"></div>
                                     </div>
                                     <button type="submit" class="mosaic-form__button mosaic-form__button--u-ikpkw5uss">
