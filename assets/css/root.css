@@ -762,7 +762,8 @@ p:first-child {
 
 .mosaic-popup a,
 .mosaic-popup .mosaic-form__field a,
-.popup-form a {
+.popup-form a,
+.mosaic-form__form.mosaic-form__form--u-ik5179561 a {
     --color-i74dmyfew: 216, 148, 39;
     color: rgba(var(--color-i74dmyfew), 1);
 }
