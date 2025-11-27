@@ -28,5 +28,6 @@ if ($_POST) {
 
     $_SESSION['win'] = 1;
     $_SESSION['recaptcha'] = '<p class="text-light">Спасибо за обращение. Мы ответим Вам в&#160;ближайшее время.</p>';
-    header("Location: " . $_SERVER['HTTP_REFERER']);
+    header("Location: ".$_SERVER['HTTP_REFERER']);
 }
+?>
