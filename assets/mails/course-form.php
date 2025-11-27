@@ -8,6 +8,7 @@ if ($_POST) {
     $fio = $_POST['fio'];
     $tel = $_POST['tel'];
     $email = $_POST['email'];
+    $kolvo_user = $_POST['kolvo_user'];
     $course_direction = $_POST['course_direction'];
     $learning_format = $_POST['learning_format'];
     $agreement = isset($_POST['agreement']) ? 'Да' : 'Нет';
@@ -17,6 +18,7 @@ if ($_POST) {
     $message .= "ФИО: " . $fio . "\n";
     $message .= "Телефон: " . $tel . "\n";
     $message .= "E-mail: " . $email . "\n";
+    $message .= "Количество людей: " . $kolvo_user . "\n";
     $message .= "Направление курса: " . $course_direction . "\n";
     $message .= "Формат обучения: " . $learning_format . "\n";
     $message .= "Согласие с пользовательским соглашением: " . $agreement . "\n";

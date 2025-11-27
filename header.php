@@ -263,10 +263,10 @@
                                         </span>
                                     </div>
                                     <label class="mosaic-form__label mosaic-form__label--u-igkj6ded9">
-                                        <input type="checkbox" name="agreement" value="Ознакомлен с пользовательским соглашением" class="mosaic-form__checkbox mosaic-form__checkbox--u-ipkpe12aq" />
+                                        <input type="checkbox" name="agreement" value="Ознакомлен с пользовательским соглашением" class="mosaic-form__checkbox mosaic-form__checkbox--u-ipkpe12aq" required checked  />
                                         <span class="mosaic-form__checkbox-icon mosaic-form__checkbox-icon--u-i4ba4orh4"></span>
                                         <span class="mosaic-form__value mosaic-form__value--u-iuv4z9pvs">
-                                            <span class="text-block-wrap-div">Ознакомлен с пользовательским соглашением</span>
+                                            <span class="text-block-wrap-div">Ознакомлен с <a href="<?= get_template_directory_uri(); ?>/docs/Privacy-Policy.pdf" target="blank" >Политике конфиденциальности.</a></span>
                                         </span>
                                     </label>
                                     <div class="mosaic-form__note mosaic-form__note--u-i9wu11dpk is-removed"></div>
@@ -333,7 +333,7 @@
                                             </span>
                                         </div>
                                         <div class="mosaic-form__body mosaic-form__body--u-ivge1fzf5">
-                                            <input type="tel" name="tel" placeholder="Телефон *" class="mosaic-form__text mosaic-form__text--u-iqc0dx3o9" />
+                                            <input type="tel" name="tel" placeholder="Телефон *" class="mosaic-form__text mosaic-form__text--u-iqc0dx3o9" required />
                                         </div>
                                     </div>
                                     <div class="mosaic-form__field mosaic-form__field--u-if7a3g01p">
@@ -344,6 +344,22 @@
                                         </div>
                                         <div class="mosaic-form__body mosaic-form__body--u-ihp67drj4">
                                             <input type="email" name="email" placeholder="E-mail" class="mosaic-form__text mosaic-form__text--u-izmi4wbgt" />
+                                        </div>
+                                    </div>
+                                    <div class="mosaic-form__field mosaic-form__field--u-ieowq877k">
+                                        <div class="mosaic-form__error mosaic-form__error--u-ig4i4wyjd is-removed">
+                                            <span class="text-block-wrap-div">это поле обязательно для заполнения</span>
+                                        </div>
+                                        <div class="mosaic-form__header mosaic-form__header--u-iyb99p7le">
+                                            <span class="mosaic-form__name mosaic-form__name--u-i38jv27ap">
+                                                <span class="text-block-wrap-div">Количество человек</span>
+                                            </span>
+                                        </div>
+                                        <div class="mosaic-form__body mosaic-form__body--u-i250lhgc3">
+                                            <div class="mosaic-form__icon mosaic-form__icon--u-i76ficuys">
+                                                <span class="svg_image svg_image--u-iayw7ng0h"></span>
+                                            </div>
+                                            <input type="number" name="kolvo_user" placeholder="Количество человек" class="mosaic-form__text mosaic-form__text--u-idpnhogca" />
                                         </div>
                                     </div>
                                     <div class="mosaic-form__field mosaic-form__field--u-i179qeij8">
@@ -388,17 +404,18 @@
                                             </span>
                                         </div>
                                         <select name="learning_format" class="mosaic-form__select mosaic-form__select--u-i6enzw69k">
-                                            <option>Онлайн</option>
-                                            <option>Очно</option>
+                                            <option value="">Выберите формат</option>
+                                            <option value="Онлайн">Онлайн</option>
+                                            <option value="Очно">Очно</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="mosaic-form__field mosaic-form__field--u-ig753muzh">
                                     <label class="mosaic-form__label mosaic-form__label--u-iffag8czd">
-                                        <input type="checkbox" name="agreement" value="Ознакомлен с пользовательским соглашением" class="mosaic-form__checkbox mosaic-form__checkbox--u-ipllxarsi" />
+                                        <input type="checkbox" name="agreement" value="Ознакомлен с пользовательским соглашением" class="mosaic-form__checkbox mosaic-form__checkbox--u-ipllxarsi" required checked />
                                         <span class="mosaic-form__checkbox-icon mosaic-form__checkbox-icon--u-imvd5rcjk"></span>
                                         <span class="mosaic-form__value mosaic-form__value--u-iduim6tjb">
-                                            <span class="text-block-wrap-div">Ознакомлен с пользовательским соглашением</span>
+                                            <span class="text-block-wrap-div">Ознакомлен с <a href="<?= get_template_directory_uri(); ?>/docs/Privacy-Policy.pdf" target="blank" >Политике конфиденциальности.</a></span>
                                         </span>
                                     </label>
                                 </div>

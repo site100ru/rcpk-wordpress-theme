@@ -760,6 +760,8 @@ p:first-child {
 	max-width: 100%;
 }
 
+.mosaic-popup a,
+.mosaic-popup .mosaic-form__field a,
 .popup-form a {
     --color-i74dmyfew: 216, 148, 39;
     color: rgba(var(--color-i74dmyfew), 1);

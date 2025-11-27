@@ -166,13 +166,13 @@ $(document).ready(function () {
         
         // Определяем какое окно открыть по тексту кнопки
         if (buttonText.includes('Записаться') || buttonText.includes('Записатьс')) {
-            popupId = 'popup-callback';
+            popupId = 'popup-course';
         } else if (buttonText.includes('Оставить заявку')) {
             popupId = 'popup-course';
         } else if (buttonText.includes('Написать нам')) {
             popupId = 'popup-username';
         } else {
-            popupId = 'popup-callback'; // по умолчанию
+            popupId = 'popup-course'; // по умолчанию
         }
         
         var $popup = $('#' + popupId + ' .mosaic-popup__inner-bg--u-iim3w5fa1');
