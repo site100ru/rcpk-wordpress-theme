@@ -272,6 +272,18 @@
         <?php echo $_SESSION['recaptcha']; unset( $_SESSION['recaptcha'] ); ?>
     </div> 
 </div>
+
+<script>
+function modalClose() {
+    var backgroundMsg = document.getElementById('background-msg');
+    var message = document.getElementById('message');
+    var btnClose = document.getElementById('btn-close');
+    
+    if (backgroundMsg) backgroundMsg.style.display = 'none';
+    if (message) message.style.display = 'none';
+    if (btnClose) btnClose.style.display = 'none';
+}
+</script>
 		
 <?php wp_footer(); ?>
 </body>
