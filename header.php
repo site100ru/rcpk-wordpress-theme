@@ -1,3 +1,13 @@
+<?php
+	
+	session_start();
+	if ( isset( $_SESSION['win'] ) ) {
+		unset( $_SESSION['win'] );
+		$_SESSION['display'] = "block";
+	} else { $_SESSION['display'] = "none"; }
+	
+?>
+
 <!doctype html>
 <html <?php language_attributes(); ?>>
 

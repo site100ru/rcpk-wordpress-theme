@@ -1,4 +1,13 @@
 <?php
+	
+	session_start();
+	if ( isset( $_SESSION['win'] ) ) {
+		unset( $_SESSION['win'] );
+		$_SESSION['display'] = "block";
+	} else { $_SESSION['display'] = "none"; }
+	
+?>
+<?php
 
 /**
  * Template Name: Главная страница
