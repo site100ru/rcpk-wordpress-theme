@@ -356,22 +356,7 @@
                                             <input type="email" name="email" placeholder="E-mail" class="mosaic-form__text mosaic-form__text--u-izmi4wbgt" />
                                         </div>
                                     </div>
-                                    <div class="mosaic-form__field mosaic-form__field--u-ieowq877k">
-                                        <div class="mosaic-form__error mosaic-form__error--u-ig4i4wyjd is-removed">
-                                            <span class="text-block-wrap-div">это поле обязательно для заполнения</span>
-                                        </div>
-                                        <div class="mosaic-form__header mosaic-form__header--u-iyb99p7le">
-                                            <span class="mosaic-form__name mosaic-form__name--u-i38jv27ap">
-                                                <span class="text-block-wrap-div">Количество человек</span>
-                                            </span>
-                                        </div>
-                                        <div class="mosaic-form__body mosaic-form__body--u-i250lhgc3">
-                                            <div class="mosaic-form__icon mosaic-form__icon--u-i76ficuys">
-                                                <span class="svg_image svg_image--u-iayw7ng0h"></span>
-                                            </div>
-                                            <input type="number" name="kolvo_user" placeholder="Количество человек" class="mosaic-form__text mosaic-form__text--u-idpnhogca" />
-                                        </div>
-                                    </div>
+                                    
                                     <div class="mosaic-form__field mosaic-form__field--u-i179qeij8">
                                         <div class="mosaic-form__header mosaic-form__header--u-inxxb5vss">
                                             <span class="mosaic-form__name mosaic-form__name--u-idvhkkseq">
@@ -418,6 +403,22 @@
                                             <option value="Онлайн">Онлайн</option>
                                             <option value="Очно">Очно</option>
                                         </select>
+                                    </div>
+                                    <div class="mosaic-form__field mosaic-form__field--u-ieowq877k">
+                                        <div class="mosaic-form__error mosaic-form__error--u-ig4i4wyjd is-removed">
+                                            <span class="text-block-wrap-div">это поле обязательно для заполнения</span>
+                                        </div>
+                                        <div class="mosaic-form__header mosaic-form__header--u-iyb99p7le">
+                                            <span class="mosaic-form__name mosaic-form__name--u-i38jv27ap">
+                                                <span class="text-block-wrap-div">Количество человек</span>
+                                            </span>
+                                        </div>
+                                        <div class="mosaic-form__body mosaic-form__body--u-i250lhgc3">
+                                            <div class="mosaic-form__icon mosaic-form__icon--u-i76ficuys">
+                                                <span class="svg_image svg_image--u-iayw7ng0h"></span>
+                                            </div>
+                                            <input type="number" name="kolvo_user" placeholder="Количество человек" class="mosaic-form__text mosaic-form__text--u-idpnhogca" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="mosaic-form__field mosaic-form__field--u-ig753muzh">
