@@ -312,7 +312,7 @@
                             </span>
                         </div>
                         <div class="mosaic-form--u-ijpswxniq mosaic-form--u-ijpswxniq-1 mosaic-form--u-iyjjmcepo">
-                            <form action="<?php echo get_template_directory_uri(); ?>/assets/mails/course-form.php" class="mosaic-form__form mosaic-form__form--u-ik5179561">
+                            <form action="<?php echo get_template_directory_uri(); ?>/assets/mails/course-form.php" class="mosaic-form__form mosaic-form__form--u-ik5179561" method="POST">
                                 <div class="mosaic-form__title mosaic-form__title--u-ixicssomo">
                                     <span class="text-block-wrap-div">Оставить заявку прямо сейчас</span>
                                 </div>
