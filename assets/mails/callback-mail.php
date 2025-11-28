@@ -12,7 +12,7 @@ if($_POST){
     $agreement = isset($_POST['agreement']) ? 'Да' : 'Нет';
     
     // Формируем текст письма
-    $message .= "Адрес: ".$address."\n";
+    $message = "Адрес: ".$address."\n";
     $message .= "Телефон: ".$tel."\n";
     $message .= "E-mail: ".$email."\n";
     $message .= "Вопрос: ".$question."\n";
