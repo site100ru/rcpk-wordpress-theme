@@ -283,6 +283,10 @@ function modalClose() {
     if (message) message.style.display = 'none';
     if (btnClose) btnClose.style.display = 'none';
 }
+// Запускаем функцию modalClose через 5 секунд после загрузки страницы
+window.onload = function() {
+    setTimeout(modalClose, 5000);
+};
 </script>
 		
 <?php wp_footer(); ?>
