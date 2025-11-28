@@ -14,7 +14,6 @@ if ($_POST) {
     $agreement = isset($_POST['agreement']) ? 'Да' : 'Нет';
 
     // Формируем текст письма
-    $message = "Новая заявка на курс с сайта:\n\n";
     $message .= "ФИО: " . $fio . "\n";
     $message .= "Телефон: " . $tel . "\n";
     $message .= "E-mail: " . $email . "\n";

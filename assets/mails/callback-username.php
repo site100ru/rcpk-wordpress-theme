@@ -12,7 +12,6 @@ if($_POST){
     $agreement = isset($_POST['agreement']) ? 'Да' : 'Нет';
     
     // Формируем текст письма
-    $message = "Сообщение с сайта:\n\n";
     $message .= "Имя: ".$username."\n";
     $message .= "Телефон: ".$tel."\n";
     $message .= "E-mail: ".$email."\n";
@@ -21,7 +20,7 @@ if($_POST){
     
     // Отправляем письмо
     // mail("info@rcpk62.ru, vasilyev-r@mail.ru", "Запись на курс с сайта", $message);
-    mail("sidorov-vv3@mail.ru, vasilyev-r@mail.ru", "Запись на курс с сайта", $message);
+    mail("sidorov-vv3@mail.ru, vasilyev-r@mail.ru", "Сообщение с сайта", $message);
     
     $_SESSION['win'] = 1;
     $_SESSION['recaptcha'] = '<p class="text-light">Спасибо за обращение. <br />Ваша заявка принята в работу. <br />В ближайшее время, с вами свяжется сотрудник учебного центра, <br />для уточнения деталей обучения.</p>';
