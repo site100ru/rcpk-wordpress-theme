@@ -1119,7 +1119,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="blocklist blocklist--u-i01mswhkw">
+                        <!-- <div class="blocklist blocklist--u-i01mswhkw">
                             <div class="blocklist__items_wrapper blocklist__items_wrapper--u-i270mgdp3">
                                 <div class="blocklist__list blocklist__list--u-ipz4y937n">
                                     <div class="blocklist__item__outer blocklist__item__outer--u-i2wy0fhnc">
@@ -1144,7 +1144,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <a href="/o-kurse" class="link-universal link-universal--u-izpg04oi4">
                             <div class="text text--u-ibg38ri2o">
                                 <span class="text-block-wrap-div">Подробнее</span>
